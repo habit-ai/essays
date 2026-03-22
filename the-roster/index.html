@@ -567,15 +567,45 @@
   <span class="section-num">III</span>
   <span class="section-title">The Build</span>
   <p>Saturday evening. I sat down knowing I wanted to build the dashboard but not exactly how. The first thing I did was have Claude audit the full agent infrastructure — every definition file, every hook, every log. The result: 11 active agents, 118+ tools, enforcement profiles, observability hooks, cross-agent context files. More complex than I'd realized.</p>
-  <p>Then I found something I'd forgotten about: a zip file in my Downloads called "Agent Dashboard.zip." A complete HTML mockup with simulated data and placeholder avatars. I don't remember making it. It might have been a Claude artifact from weeks earlier. But it was the reference I needed.</p>
-  <p>The architecture was deliberately simple. A Bun server on port 3141. Zero dependencies — no React, no framework, no bundler. Vanilla JavaScript with 30-second polling. A hardcoded registry of all seventeen agents, because I wanted the canonical list to be explicit, not discovered from the filesystem.</p>
-  <p>I chose Departure Mono for the typography. The color palette was warm and specific: cream background, burnt orange accent, near-black text. No blue. No corporate gray. This was a personal tool.</p>
-  <p>In roughly two hours, I had agent cards with avatars, a summary bar, a live activity feed, a topology graph of agent relationships, usage analytics with a heatmap, and a work queue kanban. The kanban was the part that surprised me — I'd originally planned to pull automated data, but pivoted to a manually-maintained board where I define what each agent should work on next. The dashboard went from something I watch to something I use to direct.</p>
+  <p>Then I found something I'd forgotten about: a zip file in my Downloads called "Agent Dashboard.zip." A complete HTML mockup with simulated data and placeholder avatars. I don't remember making it. It might have been a Claude artifact from weeks earlier. But it was exactly the reference I needed.</p>
+  <p>The architecture was deliberately simple. A Bun server on port 3141. Zero dependencies — no React, no framework, no bundler. Vanilla JavaScript with 30-second polling. A hardcoded registry, because the canonical list should be explicit, not discovered from the filesystem. Departure Mono for the typography. Warm cream background, burnt orange accent. No blue. No corporate gray.</p>
+  <p>In roughly two hours, I had four pages.</p>
 </div>
 
 <div class="figure reveal">
-  <img src="dashboard-overview.png" alt="Agent Ecosystem dashboard showing agent cards with pixel art avatars">
-  <p class="figure-caption">The finished overview. Eleven agents, each with face, domain, and status.</p>
+  <img src="dashboard-overview-full.png" alt="Agent overview page with cards, automations, and activity feed">
+  <p class="figure-caption">Overview. Agent cards with avatars, session stats, class badges, and a live activity feed.</p>
+</div>
+
+<div class="prose reveal">
+  <p>The overview was the front page — every agent as a card with its pixel portrait, domain, session count, and class badge. Below it, a row of automations showing what runs on schedule, and a live activity feed tailing the JSONL session log. At a glance: who's active, who's idle, what just happened.</p>
+</div>
+
+<div class="figure reveal">
+  <img src="dashboard-topology.png" alt="Agent topology graph showing relationships and shared tools">
+  <p class="figure-caption">Topology. Who talks to whom, who shares tools, who depends on whose data.</p>
+</div>
+
+<div class="prose reveal">
+  <p>The topology page mapped relationships I hadn't fully seen before. Data dependencies, shared tools, consultation lines. Sisyphus at the bottom, orchestrating four sub-agents. Saber off to the side, connected to almost nothing — the loner of the roster. Below the graph, a tool registry showing every script and which agents have access. Eighteen tools across the ecosystem, each with explicit ownership.</p>
+</div>
+
+<div class="figure reveal">
+  <img src="dashboard-stats.png" alt="Session statistics with usage table and activity heatmap">
+  <p class="figure-caption">Stats. Session counts, durations, and a GitHub-style activity heatmap.</p>
+</div>
+
+<div class="prose reveal">
+  <p>The stats page parsed every session from the JSONL log — pairing start and stop events, computing durations, flagging orphans where an agent started but never stopped (probably crashed). Sisyphus led with 11 sessions. Saber close behind with 10. Half the roster had never been formally invoked yet — they existed as definitions waiting for their first real task.</p>
+</div>
+
+<div class="figure reveal">
+  <img src="dashboard-queues.png" alt="Work queue kanban board with agent tasks">
+  <p class="figure-caption">Queues. A manually-curated kanban board — what each agent should work on next.</p>
+</div>
+
+<div class="prose reveal">
+  <p>The queues page was the surprise. I'd originally planned to pull automated data — pending reviews, learnings counts, context file health. Useful but lifeless. I pivoted to a manually-maintained kanban: three columns, tasks I write myself, each assigned to a specific agent. A "Start" button that opens a terminal session with context pre-loaded. The dashboard went from something I watch to something I use to direct.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
@@ -652,9 +682,22 @@
 
 <div class="break reveal"><span>...</span></div>
 
-<!-- VI. CLOSING -->
+<!-- VI. THE MESSENGER -->
 <div class="prose reveal">
   <span class="section-num">VI</span>
+  <span class="section-title">The Messenger</span>
+  <p>The last addition was the one that changed the relationship. A small paper plane icon in the bottom-right corner. Click it, and a panel slides open — threads grouped by agent, each one with their avatar and a short message.</p>
+  <p>The agents could now message me.</p>
+  <p>Not as chat. One-way notifications. Chiron nudges when I haven't logged a health check-in. Borges flags stale content in the vault. Midas surfaces new transactions waiting for categorization. A lightweight script runs every few hours, checks conditions, and sends reminders on behalf of agents — no full session required.</p>
+  <p>The deduplication was important: if an unread message with the same content already exists, it gets suppressed. No spam. Just one gentle reminder until acknowledged. Opening a thread marks everything as read. See the badge, read the message, get on with your day.</p>
+  <p>It's a small thing. But it's the difference between agents that wait for you to remember them and agents that reach out when something needs attention.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- VII. CLOSING -->
+<div class="prose reveal">
+  <span class="section-num">VII</span>
   <p>The whole thing took a weekend. Zero dependencies. Seventeen pixel-art portraits. The agents that lived in my terminal now live on a dashboard that looks the way I want my tools to look — warm, specific, mine.</p>
   <p>The part that sticks with me isn't the code. It's how little it took to make the system feel inhabited. Faces and a few words. That's all. The infrastructure was already there — the enforcement policies, the session logs, the shared context. But infrastructure is invisible by definition. The weekend wasn't about building capability. It was about making capability visible, and then giving it just enough personality that I actually want to look at it.</p>
   <p>Every time I open a modal and Saber hits me with a new Red Rocket quote, I remember why: tools should be fun, or you stop using them.</p>
