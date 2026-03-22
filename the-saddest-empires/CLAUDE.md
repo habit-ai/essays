@@ -7,6 +7,7 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
+| #5177 | 9:58 PM | 🟣 | Social Share Metadata Added to Essays | ~315 |
 | #5175 | 9:57 PM | ✅ | Social Sharing Metadata Updated for Vercel Deployment | ~285 |
 | #5133 | 9:35 PM | 🟣 | Second essay deployed with terminal-based design system | ~374 |
 | #5096 | 9:33 PM | ✅ | Updated footer attribution on The Saddest Empires essay | ~187 |
