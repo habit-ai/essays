@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Assemble</title>
+<title>Agents Assemble</title>
 <meta name="description" content="Building a command center for eleven AI agents — and accidentally giving them souls along the way.">
-<meta property="og:title" content="Assemble">
+<meta property="og:title" content="Agents Assemble">
 <meta property="og:description" content="Building a command center for eleven AI agents — and accidentally giving them souls along the way.">
 <meta property="og:type" content="article">
 <meta name="author" content="Samuel Salzer">
@@ -206,22 +206,22 @@
 
   /* ===== AVATAR GRID ===== */
   .avatar-row {
-    max-width: 800px;
+    max-width: 720px;
     margin: 3rem auto;
     padding: 0 24px;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
     justify-items: center;
   }
 
   .avatar-cell {
     text-align: center;
+    width: 100%;
   }
 
   .avatar-cell img {
     width: 100%;
-    max-width: 120px;
     aspect-ratio: 1;
     image-rendering: pixelated;
     display: block;
@@ -229,10 +229,10 @@
 
   .avatar-cell .avatar-name {
     font-family: 'DepartureMono', 'Geist Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
+    font-size: 10px;
+    letter-spacing: 0.12em;
     color: var(--text-dim);
-    margin-top: 6px;
+    margin-top: 8px;
     text-transform: uppercase;
   }
 
@@ -269,6 +269,43 @@
     color: var(--text-dim);
     margin-bottom: 10px;
     text-transform: uppercase;
+  }
+
+  /* ===== EVOLUTION (3-panel) ===== */
+  .evolution {
+    max-width: 760px;
+    margin: 2.5rem auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+  }
+
+  .evolution-item {
+    flex: 1;
+    text-align: center;
+  }
+
+  .evolution-item img {
+    width: 100%;
+    image-rendering: pixelated;
+    display: block;
+  }
+
+  .evolution-label {
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-top: 8px;
+  }
+
+  .evolution-arrow {
+    font-size: 18px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    align-self: center;
+    padding-bottom: 24px;
   }
 
   /* ===== TAGLINE SHOWCASE ===== */
@@ -393,8 +430,9 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .compare { flex-direction: column; gap: 20px; }
-    .avatar-row { grid-template-columns: repeat(4, 1fr); }
-    .avatar-cell img { max-width: 100px; }
+    .evolution { gap: 8px; }
+    .evolution-arrow { font-size: 14px; padding-bottom: 20px; }
+    .avatar-row { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   }
 
   @media (max-width: 480px) {
@@ -403,7 +441,6 @@
     .figure { padding: 0 16px; }
     .back { top: 16px; left: 16px; }
     .avatar-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .avatar-cell img { max-width: 90px; }
     .tagline-item img { width: 36px; height: 36px; }
   }
 </style>
@@ -416,7 +453,7 @@
 
 <header class="hero">
   <div class="hero-label">March 2026</div>
-  <h1 class="hero-title">Assemble</h1>
+  <h1 class="hero-title">Agents Assemble</h1>
   <div class="hero-line"></div>
   <p class="hero-subtitle">Building a command center for eleven AI agents — and accidentally giving them personalities along the way.</p>
   <div class="hero-scroll">
@@ -450,7 +487,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>I started with ChatGPT-generated pixel art. The results were technically accomplished but inconsistent — one Saitama came back with a yellow cape rendered in color, missing the whole 1-bit constraint. The mythological figures looked like book illustrations, not system icons.</p>
+  <p>I started with ChatGPT. The results were technically impressive and completely wrong. A Saitama came back with a yellow cape rendered in full color — missing the entire point of the constraint. The mythological figures looked like textbook illustrations. Good art, wrong project.</p>
 </div>
 
 <div class="compare reveal">
@@ -465,7 +502,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>So I built a pipeline. Gemini generated base images at high resolution, then a Bun script converted them to strict 1-bit art — quantizing to an 80x80 grid, scaling up to 640x640 for crisp rendering. The script included parameter sweeps: for each agent, it generated 24 variants across dithering algorithms and thresholds. I'd scan the grid and pick the one that captured the right expression.</p>
+  <p>So I built a pipeline instead. Gemini generated base images at high resolution, then a Bun script quantized them to an 80x80 grid in strict 1-bit — no gray, no compromise — and scaled them up to 640x640 for crisp rendering. For each agent, the script ran parameter sweeps: 24 variants across dithering algorithms and thresholds. I'd scan the grid and pick the one with the right expression.</p>
 </div>
 
 <div class="figure reveal">
@@ -474,8 +511,32 @@
 </div>
 
 <div class="prose reveal">
-  <p>The hardest was William James. The father of American psychology has a recognizable face — the beard, the gaze — but at 80x80 pixels in pure black and white, he kept looking like a generic Victorian gentleman. Five versions. A batch QA pass. He eventually came through.</p>
-  <p>One rule emerged that I hadn't expected: canvas fill matters. Early avatars filled maybe 40% of the frame and looked lost on the cards. I set a guideline — 70-80% fill, heads near the top — and re-rendered the entire batch. Sixteen agents, all reprocessed.</p>
+  <p>William James was the hardest. The father of American psychology has a recognizable face — the beard, the penetrating gaze — but at 80x80 pixels in pure black and white, he kept coming out as a generic Victorian gentleman. Five versions before he read as distinctly <em>him</em>.</p>
+  <p>But the best story was Sisyphus.</p>
+  <p>His original image was this heavy-browed, thick-necked strongman. Looked like he <em>chose</em> to push the boulder. Fit, powerful, unbothered. The problem was that the bearded sage I'd generated for Chiron looked too ancient and wise for a health coach — so the two got swapped. The sage became Chiron. And suddenly Sisyphus needed a new face.</p>
+  <p>The prompt became: <em>make him look like he's been pushing a boulder forever.</em></p>
+</div>
+
+<div class="evolution reveal">
+  <div class="evolution-item">
+    <img src="sisyphus-strong.png" alt="Original muscular Sisyphus">
+    <div class="evolution-label">Original (too strong)</div>
+  </div>
+  <div class="evolution-arrow">→</div>
+  <div class="evolution-item">
+    <img src="sisyphus-gaunt.png" alt="Gaunt, hollow-eyed Sisyphus">
+    <div class="evolution-label">v1 (the weight shows)</div>
+  </div>
+  <div class="evolution-arrow">→</div>
+  <div class="evolution-item">
+    <img src="final-sisyphus.png" alt="Final Sisyphus portrait">
+    <div class="evolution-label">Final (weary, not grotesque)</div>
+  </div>
+</div>
+
+<div class="prose reveal">
+  <p>Each iteration made him more wretched. Gaunt, hollow-eyed, messy hair. Visible collarbones. The kind of face that's been doing the same thing for millennia and knows it will never end. The newsletter agent — the one that curates and drafts and ships every week, forever — deserved to look exactly this tired.</p>
+  <p>One rule emerged that I hadn't expected: canvas fill matters. Early avatars filled maybe 40% of the frame and looked lost on the cards. I set a guideline — 70-80% fill, heads near the top — and re-rendered the entire batch.</p>
 </div>
 
 <div class="figure narrow reveal">
@@ -484,16 +545,14 @@
 </div>
 
 <div class="prose reveal">
-  <p>By end of day, seventeen portraits. An entire roster of faces, each one recognizable at 28 pixels wide.</p>
+  <p>By end of day, seventeen portraits. Each one recognizable at 28 pixels wide.</p>
 </div>
 
 <div class="avatar-row reveal">
-  <div class="avatar-cell"><img src="final-saber.png" alt="Saber"><div class="avatar-name">Saber</div></div>
   <div class="avatar-cell"><img src="final-saitama.png" alt="Saitama"><div class="avatar-name">Saitama</div></div>
   <div class="avatar-cell"><img src="final-chiron.png" alt="Chiron"><div class="avatar-name">Chiron</div></div>
   <div class="avatar-cell"><img src="final-borges.png" alt="Borges"><div class="avatar-name">Borges</div></div>
   <div class="avatar-cell"><img src="final-william-james.png" alt="William James"><div class="avatar-name">W. James</div></div>
-  <div class="avatar-cell"><img src="final-phoenix.png" alt="Phoenix"><div class="avatar-name">Phoenix</div></div>
   <div class="avatar-cell"><img src="final-prometheus.png" alt="Prometheus"><div class="avatar-name">Prometheus</div></div>
   <div class="avatar-cell"><img src="final-janus.png" alt="Janus"><div class="avatar-name">Janus</div></div>
   <div class="avatar-cell"><img src="final-sisyphus.png" alt="Sisyphus"><div class="avatar-name">Sisyphus</div></div>
