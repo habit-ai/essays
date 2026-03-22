@@ -390,6 +390,155 @@
     color: var(--text-dim);
   }
 
+  /* ===== MESSENGER MOCKUP ===== */
+  .messenger-demo {
+    max-width: 640px;
+    margin: 2.5rem auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 32px;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .msg-trigger {
+    width: 72px;
+    height: 72px;
+    border: 2px solid var(--copper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .msg-trigger svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--copper);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .msg-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    background: var(--copper);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 11px;
+    color: #fff;
+  }
+
+  .msg-panel {
+    flex: 1;
+    max-width: 380px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+  }
+
+  .msg-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .msg-panel-header span {
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .msg-panel-header .msg-count {
+    color: var(--copper);
+    margin-left: 8px;
+  }
+
+  .msg-panel-header .msg-close {
+    font-family: 'Geist', sans-serif;
+    font-size: 16px;
+    color: var(--text-dim);
+    cursor: default;
+  }
+
+  .msg-thread {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .msg-thread:last-child {
+    border-bottom: none;
+  }
+
+  .msg-avatar {
+    width: 36px;
+    height: 36px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+  }
+
+  .msg-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .msg-agent {
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 2px;
+  }
+
+  .msg-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .msg-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .msg-time {
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .msg-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--copper);
+    border-radius: 50%;
+  }
+
   /* ===== NAV ===== */
   .back {
     position: fixed;
@@ -449,6 +598,8 @@
     .back { top: 16px; left: 16px; }
     .avatar-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .tagline-item img { width: 36px; height: 36px; }
+    .messenger-demo { flex-direction: column; align-items: center; gap: 20px; padding: 0 16px; }
+    .msg-panel { max-width: 100%; }
   }
 </style>
 </head>
@@ -698,6 +849,62 @@
   <p>Not as chat. One-way notifications. Chiron nudges when I haven't logged a health check-in. Borges flags stale content in the vault. Midas surfaces new transactions waiting for categorization. A lightweight script runs every few hours, checks conditions, and sends reminders on behalf of agents — no full session required.</p>
   <p>The deduplication was important: if an unread message with the same content already exists, it gets suppressed. No spam. Just one gentle reminder until acknowledged. Opening a thread marks everything as read. See the badge, read the message, get on with your day.</p>
   <p>It's a small thing. But it's the difference between agents that wait for you to remember them and agents that reach out when something needs attention.</p>
+</div>
+
+<div class="messenger-demo reveal">
+  <div class="msg-trigger">
+    <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+    <div class="msg-badge">4</div>
+  </div>
+  <div class="msg-panel">
+    <div class="msg-panel-header">
+      <div><span>Messages</span><span class="msg-count">4</span></div>
+      <span class="msg-close">&times;</span>
+    </div>
+    <div class="msg-thread">
+      <img class="msg-avatar" src="final-chiron.png" alt="Chiron">
+      <div class="msg-body">
+        <div class="msg-agent">Chiron</div>
+        <div class="msg-text">You haven't logged a health check-in t...</div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2h ago</span>
+      </div>
+    </div>
+    <div class="msg-thread">
+      <img class="msg-avatar" src="final-borges.png" alt="Borges">
+      <div class="msg-body">
+        <div class="msg-agent">Borges</div>
+        <div class="msg-text">1 item in your Inbox older than 3 days...</div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2h ago</span>
+        <div class="msg-dot"></div>
+      </div>
+    </div>
+    <div class="msg-thread">
+      <img class="msg-avatar" src="final-saber.png" alt="Saber">
+      <div class="msg-body">
+        <div class="msg-agent">Saber</div>
+        <div class="msg-text">New film recommendation calibration re...</div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2h ago</span>
+        <div class="msg-dot"></div>
+      </div>
+    </div>
+    <div class="msg-thread">
+      <img class="msg-avatar" src="final-midas.png" alt="Midas">
+      <div class="msg-body">
+        <div class="msg-agent">Midas</div>
+        <div class="msg-text">3 new transactions to categorize</div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2h ago</span>
+        <div class="msg-dot"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="break reveal"><span>...</span></div>
