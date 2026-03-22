@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Roster</title>
+<title>Assemble</title>
 <meta name="description" content="Building a command center for eleven AI agents — and accidentally giving them souls along the way.">
-<meta property="og:title" content="The Roster">
+<meta property="og:title" content="Assemble">
 <meta property="og:description" content="Building a command center for eleven AI agents — and accidentally giving them souls along the way.">
 <meta property="og:type" content="article">
 <meta name="author" content="Samuel Salzer">
-<link rel="icon" type="image/svg+xml" href="../the-saddest-empires/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -206,13 +206,13 @@
 
   /* ===== AVATAR GRID ===== */
   .avatar-row {
-    max-width: 720px;
-    margin: 2.5rem auto;
+    max-width: 800px;
+    margin: 3rem auto;
     padding: 0 24px;
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    justify-items: center;
   }
 
   .avatar-cell {
@@ -220,18 +220,19 @@
   }
 
   .avatar-cell img {
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    max-width: 120px;
+    aspect-ratio: 1;
     image-rendering: pixelated;
     display: block;
   }
 
   .avatar-cell .avatar-name {
     font-family: 'DepartureMono', 'Geist Mono', monospace;
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 0.1em;
     color: var(--text-dim);
-    margin-top: 4px;
+    margin-top: 6px;
     text-transform: uppercase;
   }
 
@@ -392,7 +393,8 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .compare { flex-direction: column; gap: 20px; }
-    .avatar-cell img { width: 60px; height: 60px; }
+    .avatar-row { grid-template-columns: repeat(4, 1fr); }
+    .avatar-cell img { max-width: 100px; }
   }
 
   @media (max-width: 480px) {
@@ -400,7 +402,8 @@
     .prose { padding: 2rem 20px; }
     .figure { padding: 0 16px; }
     .back { top: 16px; left: 16px; }
-    .avatar-cell img { width: 48px; height: 48px; }
+    .avatar-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .avatar-cell img { max-width: 90px; }
     .tagline-item img { width: 36px; height: 36px; }
   }
 </style>
@@ -413,7 +416,7 @@
 
 <header class="hero">
   <div class="hero-label">March 2026</div>
-  <h1 class="hero-title">The Roster</h1>
+  <h1 class="hero-title">Assemble</h1>
   <div class="hero-line"></div>
   <p class="hero-subtitle">Building a command center for eleven AI agents — and accidentally giving them personalities along the way.</p>
   <div class="hero-scroll">
@@ -604,7 +607,7 @@
 </div>
 
 <footer>
-  <div class="footer-text">MMXXVI</div>
+  <div class="footer-text">Samuel Salzer</div>
 </footer>
 
 <script>
