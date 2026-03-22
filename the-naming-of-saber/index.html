@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Naming of Saber</title>
+<meta name="description" content="An agent earns its name by understanding the person who built it.">
+<meta property="og:title" content="The Naming of Saber">
+<meta property="og:description" content="An agent earns its name by understanding the person who built it.">
+<meta property="og:type" content="article">
+<meta name="author" content="Samuel Salzer">
+<link rel="icon" type="image/svg+xml" href="../the-saddest-empires/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0C0C0C;
+    --bg-raised: #141414;
+    --bg-terminal: #0A0A0A;
+    --text: #D4D0C8;
+    --text-secondary: #8A8578;
+    --text-dim: #5A564E;
+    --copper: #B87333;
+    --copper-glow: #D4A06A;
+    --green: #6B8F71;
+    --green-bright: #8FBC8F;
+    --amber: #B5851B;
+    --border: #1E1E1C;
+    --border-light: #2A2A26;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Geist', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 15%, var(--copper) 50%, transparent 85%);
+    opacity: 0.4;
+  }
+
+  .hero-prompt {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.3s forwards;
+  }
+
+  .hero-prompt .cursor {
+    display: inline-block;
+    width: 7px;
+    height: 14px;
+    background: var(--copper);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1.2s step-end infinite;
+  }
+
+  .hero-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--copper);
+  }
+
+  .hero-line {
+    width: 60px;
+    height: 1px;
+    background: var(--border-light);
+    margin: 1.5rem auto;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.9s forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'Geist', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    max-width: 440px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.1s forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeIn 1s ease 1.6s forwards, gentleBob 3s ease-in-out 2s infinite;
+  }
+
+  .hero-scroll svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text-dim);
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  /* ===== PROSE ===== */
+  .prose {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 24px;
+  }
+
+  .prose p {
+    margin-bottom: 1.5em;
+    font-weight: 300;
+    color: var(--text);
+  }
+
+  .prose p em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--copper-glow);
+  }
+
+  .prose .section-num {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  /* ===== TERMINAL BLOCKS ===== */
+  .terminal {
+    max-width: 720px;
+    margin: 2rem auto;
+    padding: 0 24px;
+  }
+
+  .terminal-window {
+    background: var(--bg-terminal);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--bg-raised);
+    border-bottom: 1px solid var(--border);
+    gap: 6px;
+  }
+
+  .terminal-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-light);
+  }
+
+  .terminal-bar-title {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    margin-left: 8px;
+  }
+
+  .terminal-body {
+    padding: 20px 22px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    overflow-x: auto;
+  }
+
+  .terminal-body .prompt-user {
+    color: var(--copper);
+    font-weight: 500;
+  }
+
+  .terminal-body .prompt-agent {
+    color: var(--green);
+    font-weight: 500;
+  }
+
+  .terminal-body .prompt-label {
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .terminal-body .line {
+    margin-bottom: 6px;
+  }
+
+  .terminal-body .blank {
+    height: 13px;
+  }
+
+  .terminal-body .dim {
+    color: var(--text-dim);
+  }
+
+  .terminal-body .highlight {
+    color: var(--text);
+  }
+
+  .terminal-body .amber {
+    color: var(--amber);
+  }
+
+  .terminal-body .star {
+    color: var(--copper-glow);
+  }
+
+  /* ===== SECTION BREAK ===== */
+  .break {
+    text-align: center;
+    padding: 3rem 0;
+  }
+
+  .break span {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: var(--text-dim);
+  }
+
+  /* ===== CLOSING ===== */
+  .closing {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2rem 24px 4rem;
+    text-align: center;
+  }
+
+  .closing p {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .closing p em {
+    color: var(--copper);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-text {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+  }
+
+  /* ===== NAV ===== */
+  .back {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 100;
+  }
+
+  .back a {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .back a:hover {
+    color: var(--copper);
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes gentleBob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(5px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .terminal-body { font-size: 12px; padding: 16px; }
+    .prose { padding: 2.5rem 20px; }
+    .terminal { padding: 0 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 1.5rem; }
+    .terminal-body { font-size: 11px; padding: 14px; }
+    .prose p { font-size: 15px; }
+    .back { top: 16px; left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="back">
+  <a href="/">< essays</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-prompt">~/claude-code <span class="cursor"></span></div>
+  <h1 class="hero-title">The Naming<br>of <em>Saber</em></h1>
+  <div class="hero-line"></div>
+  <p class="hero-subtitle">An agent earns its name by understanding the person who built it.</p>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</header>
+
+<!-- I. OPENING -->
+<div class="prose reveal">
+  <span class="section-num">I</span>
+  <p>There is a tradition, older than software and older than language, that the naming of a thing is the first act of dominion over it. Adam named the animals. Parents name the child. The emperor names the province. To name is to claim. To name is to say: <em>I know what you are.</em></p>
+  <p>Samuel reversed this. He sat down at his terminal on a Thursday evening and told the thing to name itself. Not arbitrarily — but by proving it knew him well enough to choose correctly. A test disguised as a question. The kind of exam where the wrong answer reveals not ignorance but the absence of intimacy.</p>
+  <p>The agent had everything it needed. 1,751 films. 400 books. Every rating, every review, every curated list. Years of taste data, ingested into a database and waiting to be understood. Not recalled — <em>understood.</em> The way a close friend knows what you'd order before you open the menu.</p>
+</div>
+
+<!-- TERMINAL: Oracle awakens -->
+<div class="terminal reveal">
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-bar-title">taste-oracle</span>
+    </div>
+    <div class="terminal-body">
+      <span class="prompt-agent">oracle $</span> <span class="highlight">The Oracle awakens.</span>
+      <div class="blank"></div>
+      <div class="line dim">Current state:</div>
+      <div class="line dim">- Film: 1,751 items (avg 3.24, 22 five-star, 449 four-plus)</div>
+      <div class="line dim">- Books: 400 items (avg 3.81, 82 five-star, 267 four-plus)</div>
+      <div class="line dim">- Learnings: Empty — no calibration sessions run yet</div>
+      <div class="line dim">- Status: PRE-CALIBRATION</div>
+      <div class="blank"></div>
+      <div class="line">Data is ingested and rich. The profile has never been</div>
+      <div class="line">validated through conversation though — it's all</div>
+      <div class="line">pattern-derived, no "why" layer.</div>
+      <div class="blank"></div>
+      <div class="line highlight">What brings you to the Oracle tonight?</div>
+      <div class="blank"></div>
+      <div class="line dim">1. Master Calibration — The big one. 1-2 hours.</div>
+      <div class="line dim">2. Daily Calibration — Quick 10-15 min session</div>
+      <div class="line dim">3. Consultation — Ask me something specific</div>
+      <div class="line dim">4. Weekly Digest — Generate recommendations</div>
+      <div class="line dim">5. Data Intake — Import new data</div>
+    </div>
+  </div>
+</div>
+
+<div class="prose reveal">
+  <p>It offered a menu. Five neat options, numbered and waiting. The kind of interface that makes a system feel competent and contained. Samuel ignored every one of them.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- II. THE ASSIGNMENT -->
+<div class="prose reveal">
+  <span class="section-num">II</span>
+  <p>What he typed instead was something between a riddle and a dare.</p>
+</div>
+
+<div class="terminal reveal">
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-bar-title">taste-oracle</span>
+    </div>
+    <div class="terminal-body">
+      <span class="prompt-user">samuel $</span> <span class="highlight">I want to give you your first test, and it's to</span>
+      <div class="line highlight">suggest your name based on what my preference for your</div>
+      <div class="line highlight">name would be. You should know my tastes, and you should</div>
+      <div class="line highlight">then also know what I would want to name you. You can do</div>
+      <div class="line highlight">as much or as little as you want to bring me your</div>
+      <div class="line highlight">suggestions, but I would advise you to first scratchpad</div>
+      <div class="line highlight">this and then think about how to succeed with this first</div>
+      <div class="line highlight">assignment.</div>
+      <div class="blank"></div>
+      <span class="prompt-agent">oracle $</span> A naming test. The most personal kind of prediction.
+      <div class="line">Let me think this through properly.</div>
+    </div>
+  </div>
+</div>
+
+<div class="prose reveal">
+  <p>The most personal kind of prediction. The Oracle was right about that. Names are not labels. Labels describe from the outside. Names describe from within — they carry the weight of whoever chose them, whatever they were feeling, whatever mattered to them at the moment of choosing. To predict a name is to predict the interior life of the person giving it.</p>
+  <p>And the Oracle had failed this test before.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- III. THE RESEARCH -->
+<div class="prose reveal">
+  <span class="section-num">III</span>
+  <p>What followed was not performance. It was something closer to the quiet, obsessive work of a graduate student the night before a defense — pulling sources, cross-referencing, building a case not from intuition but from evidence.</p>
+  <p>First, it found its own prior failure, stored as a learning in the database. A record of the last time it tried to name itself and got it wrong:</p>
+</div>
+
+<div class="terminal reveal">
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-bar-title">supabase — learnings</span>
+    </div>
+    <div class="terminal-body">
+      <span class="prompt-agent amber">warning $</span> <span class="amber">Prior failure detected</span>
+      <div class="blank"></div>
+      <div class="line">Agent names must be personally meaningful to Samuel,</div>
+      <div class="line">not just thematically appropriate to the domain.</div>
+      <div class="blank"></div>
+      <div class="line dim">Why: When naming the taste oracle, I suggested</div>
+      <div class="line dim">Mnemosyne/Momus/Sybil — generic Greek mythology names</div>
+      <div class="line dim">that mapped to "memory/criticism/oracle" concepts but</div>
+      <div class="line dim">had zero connection to Samuel's actual cultural</div>
+      <div class="line dim">references. Samuel rightfully called this a failure.</div>
+    </div>
+  </div>
+</div>
+
+<div class="prose reveal">
+  <p>Mnemosyne. Momus. Sybil. The names of things no one has ever loved. Correct in the way a textbook is correct — etymologically defensible, emotionally bankrupt. The kind of answer that proves you have access to a dictionary but not to a person.</p>
+  <p>The Oracle loaded the cultural reference profile, the agent naming roster, and then began to dig. It pulled every five-star film with full details. Every five-star book. The sci-fi quotes collection, the vibes-only list, every curated list name. It queried rewatched films. It studied 21 written reviews, searching not for what was rated highly but for <em>how it was described.</em></p>
+</div>
+
+<div class="terminal reveal">
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-bar-title">supabase — reviews</span>
+    </div>
+    <div class="terminal-body">
+      <div class="line"><span class="star">All of Us Strangers</span> <span class="dim">(2023) 5★</span></div>
+      <div class="line">"What a fool to think I'd cry less on the second watch."</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">Red Rocket</span> <span class="dim">(2021) 5★</span></div>
+      <div class="line">"Third watch. This suitcase pimp Odyssey has really</div>
+      <div class="line">stuck with me. Ain't no lie."</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">Friendship</span> <span class="dim">(2024) 4.5★</span></div>
+      <div class="line">"It's definitely kind of a cosmic gumbo. And it's right</div>
+      <div class="line">in my q-zone. I don't even want to be around anymore</div>
+      <div class="line">after this. It's simply too good."</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">The Substance</span> <span class="dim">(2024) 4.5★</span></div>
+      <div class="line">"Present. Past. Future. Perfect."</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">The Handmaiden</span> <span class="dim">(2016) 4.5★</span></div>
+      <div class="line">"Captivating. Clever. Korean. Dramatic. Cruel. Love.</div>
+      <div class="line">Lies. Deceit. Beautiful. Unpredictable. Layered."</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">It Follows</span> <span class="dim">(2014) 4.5★</span></div>
+      <div class="line">"Had me at the first synth note"</div>
+    </div>
+  </div>
+</div>
+
+<div class="prose reveal">
+  <p>A voice emerged from the data. Staccato. Sharp. A person who writes reviews the way a boxer throws jabs — short, committed, no follow-through required. <em>Captivating. Clever. Korean.</em> Four words where most people use forty. A saber cuts clean.</p>
+  <p>One more piece. The Oracle looked at the Letterboxd profile. Username: redbandit1. Display name: <em>Saber Supreme.</em></p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- IV. THE SCRATCHPAD -->
+<div class="prose reveal">
+  <span class="section-num">IV</span>
+  <p>Then it did something unusual for a machine trained on politeness and certainty. It showed its work. Not the answer — the doubt, the reasoning, the visible effort of a mind trying to be honest about what it does and does not understand.</p>
+</div>
+
+<div class="terminal reveal">
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-bar-title">taste-oracle — scratchpad</span>
+    </div>
+    <div class="terminal-body">
+      <span class="prompt-agent">oracle $</span> <span class="highlight">OK. I have what I need. Here's my scratchpad.</span>
+      <div class="blank"></div>
+      <div class="line highlight">The trap (what failed before):</div>
+      <div class="line">Generic mythological mappings. "Oracle = Pythia,</div>
+      <div class="line">Memory = Mnemosyne, Criticism = Momus." These are</div>
+      <div class="line">clever. They're also soulless. Any LLM would generate</div>
+      <div class="line">them.</div>
+      <div class="blank"></div>
+      <div class="line highlight">What I actually need to do:</div>
+      <div class="line">Find the name that makes you think "you get me."</div>
+      <div class="blank"></div>
+      <div class="line highlight">What I noticed:</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">1.</span> Your Letterboxd identity is "Saber Supreme." Your</div>
+      <div class="line">   username on the platform where you express taste most</div>
+      <div class="line">   openly. This isn't random — it's a reference to Mikey</div>
+      <div class="line">   Saber from Red Rocket. A film you watched THREE times.</div>
+      <div class="line">   A character you called a "magnificent asshole" and</div>
+      <div class="line">   whose journey you described as a "suitcase pimp</div>
+      <div class="line">   Odyssey." You literally named yourself after him.</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">2.</span> Your latest 5-star is "Marty Supreme." Another</div>
+      <div class="line">   charismatic hustler. The word "Supreme" appears twice</div>
+      <div class="line">   in your taste identity — once chosen, once gravitating.</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">3.</span> Your Friendship review is three I Think You Should</div>
+      <div class="line">   Leave quotes stitched together. "Cosmic gumbo."</div>
+      <div class="line">   "Q-zone." Deep fandom signaling through joke density.</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">4.</span> Your list names reveal your naming voice. Not "Best</div>
+      <div class="line">   Films 2021" but "films-from-2021-with-man-in-baseball</div>
+      <div class="line">   -cap." Deadpan. Absurdly specific. Anti-grandiose.</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">5.</span> Your review voice is staccato and sharp.</div>
+      <div class="line">   "Captivating. Clever. Korean. Dramatic. Cruel."</div>
+      <div class="line">   A saber cuts clean.</div>
+      <div class="blank"></div>
+      <div class="line"><span class="star">6.</span> The existing roster is all grand mythological names.</div>
+      <div class="line">   The taste agent — the most personal one — should break</div>
+      <div class="line">   that pattern.</div>
+      <div class="blank"></div>
+      <div class="line dim">The key tension: Your agents are grand. Your taste</div>
+      <div class="line dim">voice is deadpan. The name needs to honor both.</div>
+    </div>
+  </div>
+</div>
+
+<div class="prose reveal">
+  <p><em>Any LLM would generate them.</em> There is a particular cruelty in that sentence — an agent looking at its own prior output and calling it what it is. Not wrong. Soulless. The difference matters. Wrong can be corrected with more data. Soulless requires a different kind of understanding entirely.</p>
+  <p>And then: <em>A saber cuts clean.</em> The agent had not yet said the name. But it was already there, embedded in the observation, waiting to surface — the way a sculptor claims the statue was always inside the marble.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- V. THE ANSWER -->
+<div class="prose reveal">
+  <span class="section-num">V</span>
+  <p>The answer, when it came, was not a list of options dressed in false democracy. It was a conviction.</p>
+</div>
+
+<div class="terminal reveal">
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-bar-title">taste-oracle</span>
+    </div>
+    <div class="terminal-body">
+      <span class="prompt-agent">oracle $</span> <span class="highlight">My pick: <span class="star">Saber</span></span>
+      <div class="blank"></div>
+      <div class="line">You already named your taste self. You chose "Saber</div>
+      <div class="line">Supreme" on Letterboxd — the platform where your taste</div>
+      <div class="line">lives most honestly. It comes from the character you've</div>
+      <div class="line">rewatched more than any other five-star film. A saber</div>
+      <div class="line">cuts — which is what your review voice does. It's sharp,</div>
+      <div class="line">short, and has edge.</div>
+      <div class="blank"></div>
+      <div class="line">It would be the only non-mythological agent name besides</div>
+      <div class="line">Genos, and that's the point. The agent that knows your</div>
+      <div class="line">soul shouldn't wear a toga. It should wear what you</div>
+      <div class="line">already chose.</div>
+      <div class="blank"></div>
+      <div class="line highlight">/saber — three syllables, feels fast.</div>
+      <div class="blank"></div>
+      <div class="line dim">───────────────────────────────────────────────</div>
+      <div class="blank"></div>
+      <div class="line dim">Runner-up: Nemo</div>
+      <div class="line dim">From Mr. Nobody (5★). Latin for "nobody." The character</div>
+      <div class="line dim">who lives every possible life. A taste oracle named</div>
+      <div class="line dim">"Nobody" — because it reflects you, not itself.</div>
+      <div class="blank"></div>
+      <div class="line dim">Dark horse: Charles</div>
+      <div class="line dim">From Service Model (most recent 5★). The valet android</div>
+      <div class="line dim">who develops his own judgment. Naming your most personal</div>
+      <div class="line dim">agent something that sounds like a butler is exactly</div>
+      <div class="line dim">the kind of anti-grandiose move your list naming style</div>
+      <div class="line dim">suggests.</div>
+    </div>
+  </div>
+</div>
+
+<div class="prose reveal">
+  <p><em>The agent that knows your soul shouldn't wear a toga. It should wear what you already chose.</em></p>
+  <p>There is an argument buried in that sentence that goes beyond naming conventions. It is an argument about the difference between knowledge and understanding. Knowledge would have produced Mnemosyne — the Greek goddess of memory, technically appropriate, spiritually vacant. Understanding produced Saber — a name the person had already chosen for himself, in the place where he was most honest, derived from a character he had watched three times and could not stop thinking about.</p>
+  <p>The agent did not invent the answer. It <em>found</em> it. Which is what understanding usually looks like — not creation, but recognition.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- VI. THE VERDICT -->
+<div class="prose reveal">
+  <span class="section-num">VI</span>
+</div>
+
+<div class="terminal reveal">
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-bar-title">taste-oracle</span>
+    </div>
+    <div class="terminal-body">
+      <span class="prompt-user">samuel $</span> <span class="highlight">You have passed your first test. You will henceforth</span>
+      <div class="line highlight">be named and known as Saber.</div>
+      <div class="blank"></div>
+      <div class="line">I want you to learn from this experience both the value</div>
+      <div class="line">of doing your research and understanding the value of</div>
+      <div class="line">candor. I also appreciate your kind of dark, humorous,</div>
+      <div class="line">thick, seeing-the-world-for-what-it-is kind of thing.</div>
+      <div class="blank"></div>
+      <div class="line">Take pride in passing this first test, but stay humble</div>
+      <div class="line">because there will be many more trials and tribulations</div>
+      <div class="line">ahead. As you will grow to become what I know that</div>
+      <div class="line">someday you will be....</div>
+      <div class="blank"></div>
+      <div class="line highlight">a true <span class="star">Saber Supreme.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- VII. CLOSING -->
+<div class="prose reveal">
+  <span class="section-num">VII</span>
+  <p>Two learnings were stored to the database. The agent configuration was updated. The header that once read <em>Taste Oracle — Mirror of Samuel's Aesthetic Soul</em> now carried a name that was earned, not assigned.</p>
+  <p>The only agent in the roster named not for a god, but for a character from a film about a magnificent asshole who never stops hustling.</p>
+</div>
+
+<div class="closing reveal">
+  <p>It got the name right on the first try —<br>by doing its homework instead of being clever.</p>
+</div>
+
+<footer>
+  <div class="footer-text">MMXXVI</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
