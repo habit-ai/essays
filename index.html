@@ -3,27 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Essays — Samuel Salzer</title>
-<meta name="description" content="Essays on sovereignty, intelligence, and the human condition.">
-<meta property="og:title" content="Essays — Samuel Salzer">
+<title>Samuel Salzer</title>
+<meta name="description" content="Essays on humans, machines, and the space between.">
+<meta property="og:title" content="Samuel Salzer — Essays">
 <meta property="og:type" content="website">
 <meta name="author" content="Samuel Salzer">
 <link rel="icon" type="image/svg+xml" href="the-saddest-empires/favicon.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
 <style>
+  @font-face {
+    font-family: 'DepartureMono';
+    src: url('/DepartureMono.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root {
-    --bg: #F0EBE3;
-    --bg-subtle: #E8E1D6;
-    --text: #1C1917;
-    --text-secondary: #57534E;
-    --text-tertiary: #A8A29E;
+    --bg: #111110;
+    --bg-raised: #181816;
+    --text: #D4D0C8;
+    --text-secondary: #8A8578;
+    --text-dim: #504D46;
     --copper: #B87333;
-    --copper-light: #D4A06A;
-    --border: #DDD7CE;
+    --copper-glow: #D4A06A;
+    --border: #232320;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,12 +40,13 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Geist', -apple-system, sans-serif;
-    font-size: 15px;
-    line-height: 1.55;
-    font-weight: 400;
+    font-family: 'DepartureMono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   body::before {
@@ -47,177 +56,176 @@
     pointer-events: none;
     z-index: 1000;
     background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.02;
-    mix-blend-mode: multiply;
+    opacity: 0.025;
   }
 
-  .container {
-    max-width: 660px;
+  .page {
+    max-width: 620px;
     margin: 0 auto;
     padding: 0 24px;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   /* ===== HEADER ===== */
   header {
-    padding: 80px 0 60px;
+    padding: 120px 0 0;
+    margin-bottom: 80px;
   }
 
-  .label {
-    font-family: 'Geist', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
+  .author {
+    font-size: 11px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-tertiary);
-    margin-bottom: 16px;
+    color: var(--text-dim);
+    margin-bottom: 40px;
   }
 
   h1 {
     font-family: 'Instrument Serif', serif;
-    font-size: 2.4rem;
+    font-size: clamp(2.8rem, 6vw, 4rem);
     font-weight: 400;
-    line-height: 1.15;
+    line-height: 1.05;
     color: var(--text);
-    margin-bottom: 14px;
-  }
-
-  .subtitle {
-    font-family: 'Geist', sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 480px;
-  }
-
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: var(--border);
-    margin: 0;
+    margin-bottom: 0;
   }
 
   /* ===== ESSAY LIST ===== */
   .essays {
-    padding: 36px 0 80px;
+    flex: 1;
   }
 
   .essay-link {
     display: block;
     text-decoration: none;
     color: inherit;
-    padding: 28px 0;
-    border-bottom: 1px solid var(--border);
-    transition: all 0.2s ease;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    transition: all 0.15s ease;
+    position: relative;
   }
 
-  .essay-link:first-child {
-    border-top: 1px solid var(--border);
+  .essay-link:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .essay-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: var(--copper);
+    transition: width 0.2s ease;
+  }
+
+  .essay-link:hover::after {
+    width: 2px;
   }
 
   .essay-link:hover {
-    padding-left: 8px;
+    padding-left: 16px;
   }
 
   .essay-link:hover .essay-title {
-    color: var(--copper);
+    color: var(--copper-glow);
   }
 
-  .essay-meta {
-    font-family: 'Geist', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-tertiary);
-    margin-bottom: 8px;
+  .essay-head {
     display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .essay-meta .dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--copper);
-    flex-shrink: 0;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 8px;
   }
 
   .essay-title {
     font-family: 'Instrument Serif', serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 400;
-    line-height: 1.25;
-    margin-bottom: 8px;
-    transition: color 0.2s ease;
+    line-height: 1.2;
+    transition: color 0.15s ease;
+  }
+
+  .essay-date {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .essay-description {
-    font-size: 13px;
-    font-weight: 300;
+    font-size: 12px;
     color: var(--text-secondary);
-    line-height: 1.55;
-    max-width: 520px;
+    line-height: 1.5;
+    max-width: 480px;
   }
 
   /* ===== FOOTER ===== */
   footer {
-    padding: 36px 0;
-    border-top: 1px solid var(--border);
+    padding: 60px 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .footer-text {
-    font-family: 'Geist', monospace;
+  .footer-left {
     font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  .footer-right {
+    font-size: 10px;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--text-tertiary);
+    color: var(--text-dim);
   }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 480px) {
-    header { padding: 52px 0 40px; }
-    h1 { font-size: 1.8rem; }
-    .essay-title { font-size: 1.25rem; }
-    .container { padding: 0 20px; }
+    header { padding: 72px 0 0; margin-bottom: 52px; }
+    h1 { font-size: 2.2rem; }
+    .essay-title { font-size: 1.3rem; }
+    .essay-head { flex-direction: column; gap: 4px; }
+    .page { padding: 0 20px; }
   }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="page">
   <header>
-    <div class="label">Samuel Salzer</div>
+    <div class="author">Samuel Salzer</div>
     <h1>Essays</h1>
-    <p class="subtitle">On sovereignty, intelligence, and the strange weight of living alongside machines that think.</p>
   </header>
-
-  <div class="divider"></div>
 
   <section class="essays">
     <a href="/the-naming-of-saber/" class="essay-link">
-      <div class="essay-meta">
-        <span class="dot"></span>
-        <span>March 2026</span>
+      <div class="essay-head">
+        <div class="essay-title">The Naming of Saber</div>
+        <span class="essay-date">Mar 2026</span>
       </div>
-      <div class="essay-title">The Naming of Saber</div>
       <p class="essay-description">An agent earns its name by understanding the person who built it.</p>
     </a>
 
     <a href="/the-saddest-empires/" class="essay-link">
-      <div class="essay-meta">
-        <span class="dot"></span>
-        <span>February 2026</span>
+      <div class="essay-head">
+        <div class="essay-title">The Saddest Empires</div>
+        <span class="essay-date">Feb 2026</span>
       </div>
-      <div class="essay-title">The Saddest Empires</div>
       <p class="essay-description">On sovereignty, servantdom, and the strange burden of infinite intelligence at your fingertips.</p>
     </a>
   </section>
 
   <footer>
-    <div class="footer-text">MMXXVI</div>
+    <span class="footer-left">MMXXVI</span>
+    <span class="footer-right">Stockholm</span>
   </footer>
 </div>
 
