@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agents Assemble</title>
-<meta name="description" content="Building a command center for eleven AI agents — and accidentally giving them souls along the way.">
+<meta name="description" content="Building a command center for thirteen AI agents — faces, moods, and vital signs. Accidentally giving them souls along the way.">
 <meta property="og:title" content="Agents Assemble">
 <meta property="og:description" content="Building a command center for eleven AI agents — and accidentally giving them personalities along the way.">
 <meta property="og:type" content="article">
@@ -390,6 +390,84 @@
     color: var(--text-dim);
   }
 
+  .footer-version {
+    font-family: 'Geist', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
+
+  /* ===== SECTION DATE TAGS ===== */
+  .prose .section-date {
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    display: block;
+    margin-top: -14px;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+
+  /* ===== MOOD STRIP ===== */
+  .mood-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .mood-strip-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .mood-strip-label {
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .mood-strip-images {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .mood-strip-cell {
+    text-align: center;
+    flex: 1;
+  }
+
+  .mood-strip-cell img {
+    width: 100%;
+    aspect-ratio: 1;
+    image-rendering: pixelated;
+    display: block;
+    border: 1px solid var(--border);
+    background: white;
+  }
+
+  .mood-strip-tag {
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .mood-strip-tag.accent {
+    color: var(--copper);
+    font-weight: bold;
+  }
+
   /* ===== MESSENGER MOCKUP ===== */
   .messenger-demo {
     max-width: 640px;
@@ -561,6 +639,65 @@
     color: var(--copper);
   }
 
+  /* ===== SIDE NAV ===== */
+  .side-nav {
+    position: fixed;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .side-nav.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .side-nav a {
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: var(--border-dark);
+    transition: background 0.2s ease, width 0.2s ease, height 0.2s ease;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .side-nav a:hover {
+    background: var(--text-secondary);
+    width: 24px;
+  }
+
+  .side-nav a:hover::after {
+    content: attr(data-num) " " attr(title);
+    position: absolute;
+    left: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .side-nav a.active {
+    background: var(--copper);
+    width: 24px;
+    height: 3px;
+  }
+
+  @media (max-width: 900px) {
+    .side-nav { display: none; }
+  }
+
   /* ===== ANIMATIONS ===== */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -600,6 +737,8 @@
     .tagline-item img { width: 36px; height: 36px; }
     .messenger-demo { flex-direction: column; align-items: center; gap: 20px; padding: 0 16px; }
     .msg-panel { max-width: 100%; }
+    .mood-strip-row { flex-direction: column; align-items: flex-start; }
+    .mood-strip-label { text-align: left; width: auto; }
   }
 </style>
 </head>
@@ -607,6 +746,17 @@
 
 <nav class="back">
   <a href="/">< essays</a>
+</nav>
+
+<nav class="side-nav" id="side-nav">
+  <a href="#s-infrastructure" data-num="I" title="The Invisible Infrastructure"></a>
+  <a href="#s-faces" data-num="II" title="Faces"></a>
+  <a href="#s-build" data-num="III" title="The Build"></a>
+  <a href="#s-voices" data-num="IV" title="Voices"></a>
+  <a href="#s-ranks" data-num="V" title="Ranks"></a>
+  <a href="#s-messenger" data-num="VI" title="The Messenger"></a>
+  <a href="#s-vitals" data-num="VII" title="Vital Signs"></a>
+  <a href="#s-closing" data-num="VIII" title=""></a>
 </nav>
 
 <header class="hero">
@@ -620,9 +770,10 @@
 </header>
 
 <!-- I. THE INVISIBLE INFRASTRUCTURE -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-infrastructure">
   <span class="section-num">I</span>
   <span class="section-title">The Invisible Infrastructure</span>
+  <span class="section-date">February 2026</span>
   <p>By mid-March 2026, I had eleven AI agents running out of my terminal. Each one specialized. Chiron tracked my health. Midas managed finances across three entities. Genos maintained a research paper database. Saber curated my taste profile. Sisyphus drafted my newsletter by coordinating four sub-agents in parallel.</p>
   <p>They had enforcement policies, session logs, shared context files. An entire infrastructure humming along in <em>~/.claude/</em>. Hooks that fired on every tool call. A JSONL log with 207 lifecycle events.</p>
   <p>But I couldn't see any of it. Checking on an agent meant grepping through log files. Verifying one was working meant reading its learnings directory by hand. I had no way to know, at a glance, which agents had been active that week, which had stale data, or whether the automation was actually running.</p>
@@ -632,7 +783,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- II. FACES -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-faces">
   <span class="section-num">II</span>
   <span class="section-title">Faces</span>
   <p>Before the dashboard, the agents needed faces. They already had names drawn from mythology, anime, and literature — Chiron the centaur trainer, Borges the librarian, Saitama the overpowered hero who finds everything too easy. But names in a terminal only go so far.</p>
@@ -721,7 +872,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- III. THE BUILD -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-build">
   <span class="section-num">III</span>
   <span class="section-title">The Build</span>
   <p>Saturday evening. I sat down knowing I wanted to build the dashboard but not exactly how. The first thing I did was have Claude audit the full agent infrastructure — every definition file, every hook, every log. The result: 11 active agents, 118+ tools, enforcement profiles, observability hooks, cross-agent context files. More complex than I'd realized.</p>
@@ -769,7 +920,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- IV. VOICES -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-voices">
   <span class="section-num">IV</span>
   <span class="section-title">Voices</span>
   <p>Sunday morning. I was staring at an agent modal — the expanded view you get when you click a card. Name, face, domain, tools, session history. Complete. And completely lifeless.</p>
@@ -829,7 +980,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- V. RANKS -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-ranks">
   <span class="section-num">V</span>
   <span class="section-title">Ranks</span>
   <p>The tier labels — T1, T2, T3 — were clinical. These agents had faces and voices now. They needed a ranking system with more character.</p>
@@ -841,7 +992,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- VI. THE MESSENGER -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-messenger">
   <span class="section-num">VI</span>
   <span class="section-title">The Messenger</span>
   <p>The last addition was the one that changed the relationship. A small paper plane icon in the bottom-right corner. Click it, and a panel slides open — threads grouped by agent, each one with their avatar and a short message.</p>
@@ -909,11 +1060,86 @@
 
 <div class="break reveal"><span>...</span></div>
 
-<!-- VII. CLOSING -->
-<div class="prose reveal">
+<!-- VII. VITAL SIGNS -->
+<div class="prose reveal" id="s-vitals">
   <span class="section-num">VII</span>
+  <span class="section-title">Vital Signs</span>
+  <span class="section-date">March 2026</span>
+  <p>The faces were static. Always the same expression, no matter what was happening. Sisyphus looked equally worn whether he was mid-publish-crunch or hadn't been invoked in three weeks. That felt wrong.</p>
+  <p>So I gave each agent five mood levels. L1 through L5. Five variations of each portrait — from depleted to thriving. The idea was simple: the face you see should tell you something about the agent's actual state.</p>
+</div>
+
+<div class="figure wide reveal">
+  <div class="mood-strip">
+    <div class="mood-strip-row">
+      <span class="mood-strip-label">Sisyphus</span>
+      <div class="mood-strip-images">
+        <div class="mood-strip-cell">
+          <img src="sisyphus-1.png" alt="Sisyphus L1">
+          <span class="mood-strip-tag">L1 — Healthy</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="sisyphus-2.png" alt="Sisyphus L2">
+          <span class="mood-strip-tag">L2</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="sisyphus-3.png" alt="Sisyphus L3">
+          <span class="mood-strip-tag accent">L3 — Baseline</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="sisyphus-4.png" alt="Sisyphus L4">
+          <span class="mood-strip-tag">L4</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="sisyphus-5.png" alt="Sisyphus L5">
+          <span class="mood-strip-tag">L5 — Destroyed</span>
+        </div>
+      </div>
+    </div>
+    <div class="mood-strip-row">
+      <span class="mood-strip-label">Borges</span>
+      <div class="mood-strip-images">
+        <div class="mood-strip-cell">
+          <img src="borges-1.png" alt="Borges L1">
+          <span class="mood-strip-tag">L1 — Neglected</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="borges-2.png" alt="Borges L2">
+          <span class="mood-strip-tag">L2</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="borges-3.png" alt="Borges L3">
+          <span class="mood-strip-tag accent">L3 — Baseline</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="borges-4.png" alt="Borges L4">
+          <span class="mood-strip-tag">L4</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="borges-5.png" alt="Borges L5">
+          <span class="mood-strip-tag">L5 — Pristine</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="figure-caption">Five moods per agent. L3 (orange) is baseline. Sisyphus is inverted — he's at his best when he's destroyed.</p>
+</div>
+
+<div class="prose reveal">
+  <p>The inversion is the part I like most. Most agents improve left to right: L1 is bad, L5 is peak. But Sisyphus is a newsletter agent. His whole identity is the endless push. When he's healthy and rested, it means nothing is shipping. When he looks like death — hair thinning, eyes hollow, boulder weighing him down — that's publish week. That's when he's doing his job.</p>
+  <p>The signals that drive the moods are deliberately analog. No LLM calls. Just file dates, session counts, and inbox sizes. Chiron's mood is tied to how many health checkins exist in the past seven days. Borges reflects how cluttered the Obsidian inbox is. Midas dims when bank imports are overdue. The most digital system I've built runs on the most analog possible measurements.</p>
+  <p>Each mood also carries a reason and an optional action. Hover over Borges at L1 and you'll see: <em>"Vault neglected — 23 inbox items, no triage in 14+ days"</em> with a nudge to run <code>/borges triage</code>. It's not just decorative. The faces are a glanceable health check for the whole ecosystem.</p>
+  <p>The three-lane layout came at the same time. Agents split into three rows — Work &amp; Research, Personal Life, System &amp; Maintenance. Five newsletter and research agents in the first row, three personal agents in the second, five infrastructure agents in the third. It made the dashboard scannable in a way the flat grid never was. One glance tells you where energy is concentrated and where things have gone quiet.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- VIII. CLOSING -->
+<div class="prose reveal" id="s-closing">
+  <span class="section-num">VIII</span>
   <p>The whole thing took a weekend. Zero dependencies. Seventeen pixel-art portraits. The agents that lived in my terminal now live on a dashboard that looks the way I want my tools to look — warm, specific, mine.</p>
   <p>The part that sticks with me isn't the code. It's how little it took to make the system feel inhabited. Faces and a few words. That's all. The infrastructure was already there — the enforcement policies, the session logs, the shared context. But infrastructure is invisible by definition. The weekend wasn't about building capability. It was about making capability visible, and then giving it just enough personality that I actually want to look at it.</p>
+  <p>The mood system was the next step — making the visibility dynamic. Not just "here are your agents" but "here is how your agents are doing right now." A glanceable answer to a question I didn't know I was asking every time I opened the dashboard.</p>
   <p>Every time I open a modal and Saber hits me with a new Red Rocket quote, I remember why: tools should be fun, or you stop using them.</p>
 </div>
 
@@ -924,15 +1150,51 @@
 
 <footer>
   <div class="footer-text">Samuel Salzer</div>
+  <div class="footer-version">v2 — March 2026. Added mood system, three-lane layout.</div>
 </footer>
 
 <script>
+  // Reveal-on-scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Side nav — show after hero, highlight active section
+  const sideNav = document.getElementById('side-nav');
+  const sectionIds = ['s-infrastructure','s-faces','s-build','s-voices','s-ranks','s-messenger','s-vitals','s-closing'];
+  const navLinks = sideNav.querySelectorAll('a');
+
+  function updateSideNav() {
+    const scrollY = window.scrollY;
+    const heroHeight = document.querySelector('.hero').offsetHeight;
+
+    // Show/hide nav
+    if (scrollY > heroHeight * 0.7) {
+      sideNav.classList.add('visible');
+    } else {
+      sideNav.classList.remove('visible');
+    }
+
+    // Find active section
+    let activeIdx = 0;
+    for (let i = sectionIds.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sectionIds[i]);
+      if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) {
+        activeIdx = i;
+        break;
+      }
+    }
+
+    navLinks.forEach((link, i) => {
+      link.classList.toggle('active', i === activeIdx);
+    });
+  }
+
+  window.addEventListener('scroll', updateSideNav, { passive: true });
+  updateSideNav();
 </script>
 
 </body>
