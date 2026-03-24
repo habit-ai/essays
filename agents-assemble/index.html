@@ -642,13 +642,13 @@
   /* ===== SIDE NAV ===== */
   .side-nav {
     position: fixed;
-    left: 24px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 100;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0;
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
@@ -660,41 +660,76 @@
   }
 
   .side-nav a {
-    display: block;
-    width: 16px;
-    height: 2px;
-    background: var(--border-dark);
-    transition: background 0.2s ease, width 0.2s ease, height 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
     text-decoration: none;
     position: relative;
+    cursor: pointer;
   }
 
-  .side-nav a:hover {
-    background: var(--text-secondary);
-    width: 24px;
+  .side-nav a::before {
+    content: attr(data-num);
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    width: 22px;
+    text-align: right;
+    transition: color 0.2s ease;
+  }
+
+  .side-nav a::after {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--border-dark);
+    transition: background 0.2s ease, width 0.2s ease;
+  }
+
+  .side-nav a:hover::before {
+    color: var(--text-secondary);
   }
 
   .side-nav a:hover::after {
-    content: attr(data-num) " " attr(title);
-    position: absolute;
-    left: 32px;
-    top: 50%;
-    transform: translateY(-50%);
+    background: var(--text-secondary);
+    width: 28px;
+  }
+
+  .side-nav a:hover .side-nav-label {
+    opacity: 1;
+  }
+
+  .side-nav-label {
     font-family: 'DepartureMono', 'Geist Mono', monospace;
     font-size: 9px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     color: var(--text-secondary);
     white-space: nowrap;
     text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
   }
 
-  .side-nav a.active {
+  .side-nav a.active::before {
+    color: var(--copper);
+  }
+
+  .side-nav a.active::after {
     background: var(--copper);
-    width: 24px;
+    width: 28px;
     height: 3px;
   }
 
-  @media (max-width: 900px) {
+  .side-nav a.active .side-nav-label {
+    opacity: 1;
+    color: var(--copper);
+  }
+
+  @media (max-width: 1000px) {
     .side-nav { display: none; }
   }
 
@@ -749,14 +784,14 @@
 </nav>
 
 <nav class="side-nav" id="side-nav">
-  <a href="#s-infrastructure" data-num="I" title="The Invisible Infrastructure"></a>
-  <a href="#s-faces" data-num="II" title="Faces"></a>
-  <a href="#s-build" data-num="III" title="The Build"></a>
-  <a href="#s-voices" data-num="IV" title="Voices"></a>
-  <a href="#s-ranks" data-num="V" title="Ranks"></a>
-  <a href="#s-messenger" data-num="VI" title="The Messenger"></a>
-  <a href="#s-vitals" data-num="VII" title="Vital Signs"></a>
-  <a href="#s-closing" data-num="VIII" title=""></a>
+  <a href="#s-infrastructure" data-num="I" title="The Invisible Infrastructure"><span class="side-nav-label">Infrastructure</span></a>
+  <a href="#s-faces" data-num="II" title="Faces"><span class="side-nav-label">Faces</span></a>
+  <a href="#s-build" data-num="III" title="The Build"><span class="side-nav-label">The Build</span></a>
+  <a href="#s-voices" data-num="IV" title="Voices"><span class="side-nav-label">Voices</span></a>
+  <a href="#s-ranks" data-num="V" title="Ranks"><span class="side-nav-label">Ranks</span></a>
+  <a href="#s-messenger" data-num="VI" title="The Messenger"><span class="side-nav-label">Messenger</span></a>
+  <a href="#s-vitals" data-num="VII" title="Vital Signs"><span class="side-nav-label">Vital Signs</span></a>
+  <a href="#s-closing" data-num="VIII" title="Closing"><span class="side-nav-label">Closing</span></a>
 </nav>
 
 <header class="hero">
@@ -1072,6 +1107,81 @@
 <div class="figure wide reveal">
   <div class="mood-strip">
     <div class="mood-strip-row">
+      <span class="mood-strip-label">Midas</span>
+      <div class="mood-strip-images">
+        <div class="mood-strip-cell">
+          <img src="midas-1.png" alt="Midas L1">
+          <span class="mood-strip-tag">L1 — Neglected</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="midas-2.png" alt="Midas L2">
+          <span class="mood-strip-tag">L2</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="midas-3.png" alt="Midas L3">
+          <span class="mood-strip-tag accent">L3 — Baseline</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="midas-4.png" alt="Midas L4">
+          <span class="mood-strip-tag">L4</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="midas-5.png" alt="Midas L5">
+          <span class="mood-strip-tag">L5 — Thriving</span>
+        </div>
+      </div>
+    </div>
+    <div class="mood-strip-row">
+      <span class="mood-strip-label">William James</span>
+      <div class="mood-strip-images">
+        <div class="mood-strip-cell">
+          <img src="william-james-1.png" alt="William James L1">
+          <span class="mood-strip-tag">L1 — Dormant</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="william-james-2.png" alt="William James L2">
+          <span class="mood-strip-tag">L2</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="william-james-3.png" alt="William James L3">
+          <span class="mood-strip-tag accent">L3 — Baseline</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="william-james-4.png" alt="William James L4">
+          <span class="mood-strip-tag">L4</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="william-james-5.png" alt="William James L5">
+          <span class="mood-strip-tag">L5 — Deep Engagement</span>
+        </div>
+      </div>
+    </div>
+    <div class="mood-strip-row">
+      <span class="mood-strip-label">Saitama</span>
+      <div class="mood-strip-images">
+        <div class="mood-strip-cell">
+          <img src="saitama-1.png" alt="Saitama L1">
+          <span class="mood-strip-tag">L1 — Bored</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="saitama-2.png" alt="Saitama L2">
+          <span class="mood-strip-tag">L2</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="saitama-3.png" alt="Saitama L3">
+          <span class="mood-strip-tag accent">L3 — Baseline</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="saitama-4.png" alt="Saitama L4">
+          <span class="mood-strip-tag">L4</span>
+        </div>
+        <div class="mood-strip-cell">
+          <img src="saitama-5.png" alt="Saitama L5">
+          <span class="mood-strip-tag">L5 — Slightly Less Bored</span>
+        </div>
+      </div>
+    </div>
+    <div class="mood-strip-row">
       <span class="mood-strip-label">Sisyphus</span>
       <div class="mood-strip-images">
         <div class="mood-strip-cell">
@@ -1097,39 +1207,45 @@
       </div>
     </div>
     <div class="mood-strip-row">
-      <span class="mood-strip-label">Borges</span>
+      <span class="mood-strip-label">Prometheus</span>
       <div class="mood-strip-images">
         <div class="mood-strip-cell">
-          <img src="borges-1.png" alt="Borges L1">
-          <span class="mood-strip-tag">L1 — Neglected</span>
+          <img src="prometheus-1.png" alt="Prometheus L1">
+          <span class="mood-strip-tag">L1 — Eagle Attack</span>
         </div>
         <div class="mood-strip-cell">
-          <img src="borges-2.png" alt="Borges L2">
+          <img src="prometheus-2.png" alt="Prometheus L2">
           <span class="mood-strip-tag">L2</span>
         </div>
         <div class="mood-strip-cell">
-          <img src="borges-3.png" alt="Borges L3">
+          <img src="prometheus-3.png" alt="Prometheus L3">
           <span class="mood-strip-tag accent">L3 — Baseline</span>
         </div>
         <div class="mood-strip-cell">
-          <img src="borges-4.png" alt="Borges L4">
+          <img src="prometheus-4.png" alt="Prometheus L4">
           <span class="mood-strip-tag">L4</span>
         </div>
         <div class="mood-strip-cell">
-          <img src="borges-5.png" alt="Borges L5">
-          <span class="mood-strip-tag">L5 — Pristine</span>
+          <img src="prometheus-5.png" alt="Prometheus L5">
+          <span class="mood-strip-tag">L5 — Fire-bringer</span>
         </div>
       </div>
     </div>
   </div>
-  <p class="figure-caption">Five moods per agent. L3 (orange) is baseline. Sisyphus is inverted — he's at his best when he's destroyed.</p>
+  <p class="figure-caption">Five moods per agent. L3 (orange) is baseline. Some follow the expected arc — Midas goes from neglected to thriving. Others don't: Sisyphus is inverted (destroyed = productive), Saitama barely changes, and Prometheus maps to his myth.</p>
 </div>
 
 <div class="prose reveal">
-  <p>The inversion is the part I like most. Most agents improve left to right: L1 is bad, L5 is peak. But Sisyphus is a newsletter agent. His whole identity is the endless push. When he's healthy and rested, it means nothing is shipping. When he looks like death — hair thinning, eyes hollow, boulder weighing him down — that's publish week. That's when he's doing his job.</p>
+  <p>The range of approaches is the part I like most. Midas and William James follow the expected arc — neglected on the left, thriving on the right. Straightforward. But Saitama, the One Punch Man character who is bored by being too powerful, barely changes at all. Squint at L1 and L5 and you might notice a slightly different expression. That's the joke — he's imperceptible because he doesn't care.</p>
+  <p>Sisyphus is fully inverted. He's a newsletter agent. His whole identity is the endless push. When he's healthy and rested, it means nothing is shipping. When he looks like death — hair thinning, eyes hollow, boulder weighing him down — that's publish week. That's when he's doing his job. And Prometheus maps directly to his myth: L1 is the eagle attack, L5 is the blazing fire-bringer.</p>
   <p>The signals that drive the moods are deliberately analog. No LLM calls. Just file dates, session counts, and inbox sizes. Chiron's mood is tied to how many health checkins exist in the past seven days. Borges reflects how cluttered the Obsidian inbox is. Midas dims when bank imports are overdue. The most digital system I've built runs on the most analog possible measurements.</p>
   <p>Each mood also carries a reason and an optional action. Hover over Borges at L1 and you'll see: <em>"Vault neglected — 23 inbox items, no triage in 14+ days"</em> with a nudge to run <code>/borges triage</code>. It's not just decorative. The faces are a glanceable health check for the whole ecosystem.</p>
   <p>The three-lane layout came at the same time. Agents split into three rows — Work &amp; Research, Personal Life, System &amp; Maintenance. Five newsletter and research agents in the first row, three personal agents in the second, five infrastructure agents in the third. It made the dashboard scannable in a way the flat grid never was. One glance tells you where energy is concentrated and where things have gone quiet.</p>
+</div>
+
+<div class="figure wide reveal">
+  <img src="dashboard-moods.png" alt="Dashboard with mood system and three-lane layout">
+  <p class="figure-caption">The dashboard with mood indicators. Colored left borders and avatar variants show each agent's current state at a glance.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
