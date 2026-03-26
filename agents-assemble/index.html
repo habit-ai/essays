@@ -1066,38 +1066,53 @@
   .side-nav a {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 0;
+    gap: 6px;
+    padding: 5px 0;
     text-decoration: none;
-    position: relative;
     cursor: pointer;
   }
 
+  /* Line — flush left */
   .side-nav a::before {
     content: '';
     display: block;
-    width: 18px;
-    height: 2px;
+    width: 16px;
+    height: 1.5px;
     background: var(--border-dark);
     flex-shrink: 0;
+    order: 1;
     transition: background 0.2s ease, width 0.2s ease;
   }
 
+  /* Number — after line */
   .side-nav a::after {
     content: attr(data-num);
     font-family: 'DepartureMono', 'Geist Mono', monospace;
     font-size: 9px;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     color: var(--text-dim);
-    width: 22px;
-    text-align: left;
     flex-shrink: 0;
+    order: 2;
     transition: color 0.2s ease;
+  }
+
+  /* Label — last, hidden until hover */
+  .side-nav-label {
+    font-family: 'DepartureMono', 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    text-transform: uppercase;
+    opacity: 0;
+    order: 3;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
   }
 
   .side-nav a:hover::before {
     background: var(--text-secondary);
-    width: 28px;
+    width: 24px;
   }
 
   .side-nav a:hover::after {
@@ -1108,22 +1123,10 @@
     opacity: 1;
   }
 
-  .side-nav-label {
-    font-family: 'DepartureMono', 'Geist Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.06em;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    text-transform: uppercase;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-  }
-
   .side-nav a.active::before {
     background: var(--copper);
-    width: 28px;
-    height: 3px;
+    width: 24px;
+    height: 2px;
   }
 
   .side-nav a.active::after {
