@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agents Assemble</title>
-<meta name="description" content="Building a command center for thirteen AI agents — faces, moods, and vital signs. Accidentally giving them souls along the way.">
+<meta name="description" content="Building a command center for eighteen AI agents — faces, moods, task boards, and vital signs. Accidentally giving them souls along the way.">
 <meta property="og:title" content="Agents Assemble">
-<meta property="og:description" content="Building a command center for eleven AI agents — and accidentally giving them personalities along the way.">
+<meta property="og:description" content="Building a command center for eighteen AI agents — and accidentally giving them personalities along the way.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://samuel-essays.vercel.app/agents-assemble/dashboard-overview.png">
 <meta property="og:url" content="https://samuel-essays.vercel.app/agents-assemble/">
 <meta property="og:site_name" content="Samuel Salzer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Agents Assemble">
-<meta name="twitter:description" content="Building a command center for eleven AI agents — and accidentally giving them personalities along the way.">
+<meta name="twitter:description" content="Building a command center for eighteen AI agents — and accidentally giving them personalities along the way.">
 <meta name="twitter:image" content="https://samuel-essays.vercel.app/agents-assemble/dashboard-overview.png">
 <meta name="author" content="Samuel Salzer">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -617,6 +617,410 @@
     border-radius: 50%;
   }
 
+  /* ===== DASHBOARD MOCKUP — faithful to real dashboard CSS ===== */
+  .dashboard-mockup {
+    max-width: 860px;
+    margin: 2.5rem auto;
+    padding: 0 24px;
+  }
+
+  .dm-chrome {
+    background: #1a1a1a;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dm-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dm-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #3a3a3a;
+  }
+
+  .dm-dots span:first-child { background: #ff5f57; }
+  .dm-dots span:nth-child(2) { background: #febc2e; }
+  .dm-dots span:last-child { background: #28c840; }
+
+  .dm-url {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    color: #8a8580;
+    letter-spacing: 0.04em;
+    background: #0d0d0d;
+    padding: 4px 12px;
+    border-radius: 4px;
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Global nav bar (black) */
+  .dm-nav-global {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 6px 16px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .dm-nav-global span {
+    font-family: 'DepartureMono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,243,239,0.4);
+  }
+
+  .dm-nav-global span.dm-active-section {
+    color: #f5f3ef;
+    border-bottom: 1px solid #d4753a;
+    padding-bottom: 2px;
+  }
+
+  /* Local nav bar (cream) */
+  .dm-nav-local {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 10px 16px;
+    background: #faf9f7;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .dm-nav-title {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-right: auto;
+  }
+
+  .dm-nav-link {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a8580;
+  }
+
+  .dm-nav-link.dm-active {
+    color: #d4753a;
+    border-bottom: 1px solid #d4753a;
+    padding-bottom: 2px;
+  }
+
+  /* Dashboard body */
+  .dm-body {
+    background: #f5f3ef;
+    border: 1px solid #1a1a1a;
+    border-top: none;
+    padding: 20px;
+  }
+
+  .dm-page-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .dm-page-title {
+    font-family: 'DepartureMono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+  }
+
+  .dm-timestamp {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    color: #8a8580;
+    letter-spacing: 0.1em;
+  }
+
+  /* Attention panel — amber border, tinted bg */
+  .dm-attention {
+    border: 2px solid #c7a03c;
+    background: rgba(199,160,60,0.04);
+    margin-bottom: 16px;
+  }
+
+  .dm-attention-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(199,160,60,0.2);
+  }
+
+  .dm-attention-title {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #c7a03c;
+  }
+
+  .dm-attention-count {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    color: #c7a03c;
+    font-weight: 700;
+  }
+
+  .dm-attention-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(199,160,60,0.12);
+  }
+
+  .dm-attention-item:last-child { border-bottom: none; }
+
+  .dm-attention-item.dm-risk-high-border { border-left: 3px solid #c55; }
+  .dm-attention-item.dm-risk-med-border { border-left: 3px solid #c7a03c; }
+
+  .dm-avatar-sm {
+    width: 28px;
+    height: 28px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+  }
+
+  .dm-avatar-xs {
+    width: 28px;
+    height: 28px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+  }
+
+  .dm-attention-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .dm-attention-task-title {
+    font-family: 'DepartureMono', monospace;
+    font-size: 12px;
+    color: #1a1a1a;
+  }
+
+  .dm-attention-meta {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    color: #8a8580;
+  }
+
+  .dm-attention-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Risk badges — border style matching real dashboard */
+  .dm-risk-badge {
+    font-family: 'DepartureMono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1px 6px;
+    border: 1px solid;
+  }
+
+  .dm-risk-badge.high { color: #c55; border-color: #c55; }
+  .dm-risk-badge.medium { color: #c7a03c; border-color: #c7a03c; }
+  .dm-risk-badge.low { color: #6a6; border-color: #6a6; }
+
+  /* Small buttons matching real kanban-btn */
+  .dm-btn {
+    font-family: 'DepartureMono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid #1a1a1a;
+    background: #faf9f7;
+    color: #8a8580;
+  }
+
+  .dm-btn.dm-btn-review { color: #c7a03c; border-color: #c7a03c; }
+  .dm-btn.dm-btn-approve { color: #6a6; border-color: #6a6; }
+
+  /* Column toggles */
+  .dm-toggles {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .dm-toggle {
+    font-family: 'DepartureMono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border: 1px solid #1a1a1a;
+    background: #faf9f7;
+    color: #1a1a1a;
+  }
+
+  .dm-toggle.dm-toggle-dim {
+    opacity: 0.4;
+  }
+
+  .dm-toggle-count {
+    font-size: 9px;
+    color: #8a8580;
+    margin-left: 3px;
+  }
+
+  /* Kanban grid — matches real 3-col layout */
+  .dm-kanban {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .dm-kanban-col {
+    min-width: 0;
+  }
+
+  .dm-kanban-col-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #f0eee9;
+  }
+
+  .dm-kanban-col-title {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #8a8580;
+  }
+
+  .dm-kanban-col-count {
+    font-family: 'DepartureMono', monospace;
+    font-size: 10px;
+    color: #8a8580;
+  }
+
+  /* Kanban cards — matches real kanban-card */
+  .dm-kanban-card {
+    background: #faf9f7;
+    border: 1px solid #1a1a1a;
+    padding: 10px;
+    margin-bottom: 6px;
+  }
+
+  .dm-kanban-card-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .dm-kanban-card-agent {
+    font-family: 'DepartureMono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #d4753a;
+  }
+
+  .dm-kanban-card-time {
+    font-family: 'DepartureMono', monospace;
+    font-size: 9px;
+    color: #8a8580;
+    margin-left: auto;
+  }
+
+  .dm-risk-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .dm-risk-dot.high { background: #c55; }
+  .dm-risk-dot.low { background: #6a6; }
+
+  .dm-kanban-card-title {
+    font-family: 'DepartureMono', monospace;
+    font-size: 12px;
+    color: #1a1a1a;
+    margin-bottom: 3px;
+  }
+
+  .dm-kanban-card-detail {
+    font-family: 'DepartureMono', monospace;
+    font-size: 11px;
+    color: #8a8580;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .dm-kanban-card-actions {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  /* Summary bar */
+  .dm-summary {
+    display: flex;
+    gap: 2rem;
+    padding: 10px 14px;
+    background: #faf9f7;
+    border: 1px solid #1a1a1a;
+  }
+
+  .dm-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .dm-stat-label {
+    font-family: 'DepartureMono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a8580;
+  }
+
+  .dm-stat-val {
+    font-family: 'DepartureMono', monospace;
+    font-size: 18px;
+    color: #1a1a1a;
+  }
+
+  .dm-stat-val.accent { color: #d4753a; }
+
+  @media (max-width: 640px) {
+    .dm-kanban { grid-template-columns: 1fr; }
+    .dm-summary { flex-wrap: wrap; gap: 12px; }
+    .dm-attention-item { flex-wrap: wrap; }
+  }
+
   /* ===== NAV ===== */
   .back {
     position: fixed;
@@ -791,14 +1195,18 @@
   <a href="#s-ranks" data-num="V" title="Ranks"><span class="side-nav-label">Ranks</span></a>
   <a href="#s-messenger" data-num="VI" title="The Messenger"><span class="side-nav-label">Messenger</span></a>
   <a href="#s-vitals" data-num="VII" title="Vital Signs"><span class="side-nav-label">Vital Signs</span></a>
-  <a href="#s-closing" data-num="VIII" title="Closing"><span class="side-nav-label">Closing</span></a>
+  <a href="#s-taskboard" data-num="VIII" title="The Task Board"><span class="side-nav-label">Task Board</span></a>
+  <a href="#s-calendar" data-num="IX" title="The Shipping Calendar"><span class="side-nav-label">Calendar</span></a>
+  <a href="#s-samuel" data-num="X" title="Samuel Joins the Roster"><span class="side-nav-label">Samuel</span></a>
+  <a href="#s-messenger-live" data-num="XI" title="The Messenger Goes Live"><span class="side-nav-label">Live</span></a>
+  <a href="#s-closing" data-num="XII" title="Closing"><span class="side-nav-label">Closing</span></a>
 </nav>
 
 <header class="hero">
   <div class="hero-label">March 2026</div>
   <h1 class="hero-title">Agents Assemble</h1>
   <div class="hero-line"></div>
-  <p class="hero-subtitle">Building a command center for eleven AI agents — and accidentally giving them personalities along the way.</p>
+  <p class="hero-subtitle">Building a command center for eighteen AI agents — and accidentally giving them personalities along the way.</p>
   <div class="hero-scroll">
     <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
   </div>
@@ -808,9 +1216,9 @@
 <div class="prose reveal" id="s-infrastructure">
   <span class="section-num">I</span>
   <span class="section-title">The Invisible Infrastructure</span>
-  <span class="section-date">February 2026</span>
-  <p>By mid-March 2026, I had eleven AI agents running out of my terminal. Each one specialized. Chiron tracked my health. Midas managed finances across three entities. Genos maintained a research paper database. Saber curated my taste profile. Sisyphus drafted my newsletter by coordinating four sub-agents in parallel.</p>
-  <p>They had enforcement policies, session logs, shared context files. An entire infrastructure humming along in <em>~/.claude/</em>. Hooks that fired on every tool call. A JSONL log with 207 lifecycle events.</p>
+  <span class="section-date">March 17–18, 2026</span>
+  <p>By March 18th, I had eleven AI agents running out of my terminal. Each one specialized. Chiron tracked my health. Midas managed finances across three entities. Genos maintained a research paper database. Saber curated my taste profile. Sisyphus drafted my newsletter by coordinating four sub-agents in parallel.</p>
+  <p>They had enforcement policies, session logs, shared context files. An entire infrastructure humming along in <em>~/.claude/</em>. Hooks that fired on every tool call. A JSONL log with 207 lifecycle events. All of it built between March 17th and 18th — two evenings of wiring hooks, writing enforcement profiles, and configuring session loggers.</p>
   <p>But I couldn't see any of it. Checking on an agent meant grepping through log files. Verifying one was working meant reading its learnings directory by hand. I had no way to know, at a glance, which agents had been active that week, which had stale data, or whether the automation was actually running.</p>
   <p>I needed a dashboard. Not a monitoring tool — something that felt like mine.</p>
 </div>
@@ -910,10 +1318,11 @@
 <div class="prose reveal" id="s-build">
   <span class="section-num">III</span>
   <span class="section-title">The Build</span>
-  <p>Saturday evening. I sat down knowing I wanted to build the dashboard but not exactly how. The first thing I did was have Claude audit the full agent infrastructure — every definition file, every hook, every log. The result: 11 active agents, 118+ tools, enforcement profiles, observability hooks, cross-agent context files. More complex than I'd realized.</p>
+  <span class="section-date">Saturday, March 21, 2026</span>
+  <p>Saturday evening, March 21st. I sat down knowing I wanted to build the dashboard but not exactly how. The first thing I did was have Claude audit the full agent infrastructure — every definition file, every hook, every log. The result: 11 active agents, 118+ tools, enforcement profiles, observability hooks, cross-agent context files. More complex than I'd realized.</p>
   <p>Then I found something I'd forgotten about: a zip file in my Downloads called "Agent Dashboard.zip." A complete HTML mockup with simulated data and placeholder avatars. I don't remember making it. It might have been a Claude artifact from weeks earlier. But it was exactly the reference I needed.</p>
   <p>The architecture was deliberately simple. A Bun server on port 3141. Zero dependencies — no React, no framework, no bundler. Vanilla JavaScript with 30-second polling. A hardcoded registry, because the canonical list should be explicit, not discovered from the filesystem. Departure Mono for the typography. Warm cream background, burnt orange accent. No blue. No corporate gray.</p>
-  <p>In roughly two hours, I had four pages.</p>
+  <p>By 10:47 PM — roughly two hours after starting — I had four pages.</p>
 </div>
 
 <div class="figure reveal">
@@ -958,7 +1367,8 @@
 <div class="prose reveal" id="s-voices">
   <span class="section-num">IV</span>
   <span class="section-title">Voices</span>
-  <p>Sunday morning. I was staring at an agent modal — the expanded view you get when you click a card. Name, face, domain, tools, session history. Complete. And completely lifeless.</p>
+  <span class="section-date">Sunday, March 22, 2026</span>
+  <p>Sunday morning, March 22nd. I was staring at an agent modal — the expanded view you get when you click a card. Name, face, domain, tools, session history. Complete. And completely lifeless.</p>
   <p>The agents had faces now. But no voice. I started writing taglines.</p>
 </div>
 
@@ -1099,7 +1509,7 @@
 <div class="prose reveal" id="s-vitals">
   <span class="section-num">VII</span>
   <span class="section-title">Vital Signs</span>
-  <span class="section-date">March 2026</span>
+  <span class="section-date">Sunday, March 22, 2026</span>
   <p>The faces were static. Always the same expression, no matter what was happening. Sisyphus looked equally worn whether he was mid-publish-crunch or hadn't been invoked in three weeks. That felt wrong.</p>
   <p>So I gave each agent five mood levels. L1 through L5. Five variations of each portrait — from depleted to thriving. The idea was simple: the face you see should tell you something about the agent's actual state.</p>
 </div>
@@ -1243,20 +1653,292 @@
   <p>The three-lane layout came at the same time. Agents split into three rows — Work &amp; Research, Personal Life, System &amp; Maintenance. Five newsletter and research agents in the first row, three personal agents in the second, five infrastructure agents in the third. It made the dashboard scannable in a way the flat grid never was. One glance tells you where energy is concentrated and where things have gone quiet.</p>
 </div>
 
-<div class="figure wide reveal">
-  <img src="dashboard-moods.png" alt="Dashboard with mood system and three-lane layout">
-  <p class="figure-caption">The dashboard with mood indicators. Colored left borders and avatar variants show each agent's current state at a glance.</p>
+<div class="figure reveal">
+  <img src="screenshot-overview.png" alt="The agent ecosystem dashboard showing fourteen agents across three lanes — Work & Research, Personal Life, System & Maintenance — with mood borders and the Samuel operator card at the bottom">
+  <p class="figure-caption">The dashboard as it looks today. Fourteen agents in three lanes, each with a mood-driven left border — green for healthy, amber for needs attention, red for neglected. At the bottom: the human operator, filed under "Useless Human." More on that later.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
 
-<!-- VIII. CLOSING -->
-<div class="prose reveal" id="s-closing">
+<!-- VIII. THE TASK BOARD -->
+<div class="prose reveal" id="s-taskboard">
   <span class="section-num">VIII</span>
-  <p>The whole thing took a weekend. Zero dependencies. Seventeen pixel-art portraits. The agents that lived in my terminal now live on a dashboard that looks the way I want my tools to look — warm, specific, mine.</p>
-  <p>The part that sticks with me isn't the code. It's how little it took to make the system feel inhabited. Faces and a few words. That's all. The infrastructure was already there — the enforcement policies, the session logs, the shared context. But infrastructure is invisible by definition. The weekend wasn't about building capability. It was about making capability visible, and then giving it just enough personality that I actually want to look at it.</p>
-  <p>The mood system was the next step — making the visibility dynamic. Not just "here are your agents" but "here is how your agents are doing right now." A glanceable answer to a question I didn't know I was asking every time I opened the dashboard.</p>
-  <p>Every time I open a modal and Saber hits me with a new Red Rocket quote, I remember why: tools should be fun, or you stop using them.</p>
+  <span class="section-title">The Task Board</span>
+  <span class="section-date">March 25, 2026</span>
+  <p>Until now, getting an agent to do something meant typing a slash command and hoping for the best. There was no formal handoff — no brief, no scope, no review gate. I'd invoke <code>/genos</code> with a paragraph of instructions, and it would run until it was done or I killed it. For small tasks, that was fine. For anything ambitious, it was reckless.</p>
+  <p>So I built a task system. Not a to-do list — a proper work governance layer. Every task is a small PRD: a title, an objective, success criteria, scope boundaries, deliverables. Before an agent starts, the task goes through a brief. When it finishes, the work gets reviewed.</p>
+  <p>The part that matters is risk. Each task gets a risk level — low, medium, or high — and the review path changes accordingly. Low-risk work auto-completes. The agent finishes, the task closes, no one needs to look at it. Medium-risk tasks sit in review for forty-eight hours. If I don't weigh in, they auto-approve. High-risk work blocks until I explicitly sign off. Nothing ships unreviewed when the stakes are real.</p>
+  <p>The kanban board shows it all at once: five columns — In Progress, In Review, Planned, Completed, Cancelled — with risk badges and agent avatars on every card. At the top, an attention panel pins the medium and high-risk tasks that are waiting on me, sorted by how long they've been waiting. It's the "drop everything and look at this" surface I didn't know I needed.</p>
+</div>
+
+<div class="dashboard-mockup reveal">
+  <div class="dm-chrome">
+    <div class="dm-dots"><span></span><span></span><span></span></div>
+    <div class="dm-url">localhost:3141/agents/tasks.html</div>
+  </div>
+  <div class="dm-nav-global">
+    <span>Hub</span>
+    <span class="dm-active-section">Agents</span>
+    <span>Stats</span>
+    <span>Health</span>
+  </div>
+  <div class="dm-nav-local">
+    <span class="dm-nav-title">Agent Ecosystem</span>
+    <span class="dm-nav-link">Overview</span>
+    <span class="dm-nav-link dm-active">Tasks</span>
+    <span class="dm-nav-link">Calendar</span>
+    <span class="dm-nav-link">Stats</span>
+    <span class="dm-nav-link">Quotes</span>
+  </div>
+  <div class="dm-body">
+    <div class="dm-page-header">
+      <span class="dm-page-title">Task Board</span>
+      <span class="dm-timestamp">2026-03-26 08:41 CET</span>
+    </div>
+
+    <div class="dm-toggles">
+      <span class="dm-toggle">In Progress <span class="dm-toggle-count">3</span></span>
+      <span class="dm-toggle">In Review <span class="dm-toggle-count">2</span></span>
+      <span class="dm-toggle">Planned <span class="dm-toggle-count">5</span></span>
+      <span class="dm-toggle dm-toggle-dim">Completed <span class="dm-toggle-count">7</span></span>
+      <span class="dm-toggle dm-toggle-dim">Cancelled <span class="dm-toggle-count">0</span></span>
+    </div>
+
+    <div class="dm-attention">
+      <div class="dm-attention-header">
+        <span class="dm-attention-title">Attention — Needs Review</span>
+        <span class="dm-attention-count">2</span>
+      </div>
+      <div class="dm-attention-item dm-risk-high-border">
+        <img src="final-genos.png" class="dm-avatar-sm">
+        <div class="dm-attention-info">
+          <span class="dm-attention-task-title">Literature synthesis on active inference</span>
+          <span class="dm-attention-meta">Genos · High risk · Waiting 2d</span>
+        </div>
+        <div class="dm-attention-actions">
+          <span class="dm-btn dm-btn-review">Review</span>
+          <span class="dm-btn dm-btn-approve">Approve</span>
+        </div>
+      </div>
+      <div class="dm-attention-item dm-risk-med-border">
+        <img src="final-william-james.png" class="dm-avatar-sm">
+        <div class="dm-attention-info">
+          <span class="dm-attention-task-title">Yazen predictive care analysis</span>
+          <span class="dm-attention-meta">W. James · Medium risk · Waiting 18h</span>
+        </div>
+        <div class="dm-attention-actions">
+          <span class="dm-btn dm-btn-review">Review</span>
+          <span class="dm-btn dm-btn-approve">Approve</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dm-kanban">
+      <div class="dm-kanban-col">
+        <div class="dm-kanban-col-header" style="border-bottom-color: #4a9a6a;">
+          <span class="dm-kanban-col-title">In Progress</span>
+          <span class="dm-kanban-col-count">3</span>
+        </div>
+        <div class="dm-kanban-card">
+          <div class="dm-kanban-card-header">
+            <img src="final-borges.png" class="dm-avatar-xs">
+            <span class="dm-kanban-card-agent">Borges</span>
+            <span class="dm-risk-dot low"></span>
+            <span class="dm-kanban-card-time">4h ago</span>
+          </div>
+          <div class="dm-kanban-card-title">Vault dead link patrol</div>
+          <div class="dm-kanban-card-detail">Scan all internal links, flag broken refs</div>
+          <div class="dm-kanban-card-actions">
+            <span class="dm-btn">View PRD</span>
+          </div>
+        </div>
+        <div class="dm-kanban-card">
+          <div class="dm-kanban-card-header">
+            <img src="final-janus.png" class="dm-avatar-xs">
+            <span class="dm-kanban-card-agent">Janus</span>
+            <span class="dm-risk-dot" style="background:#c7a03c;"></span>
+            <span class="dm-kanban-card-time">1d ago</span>
+          </div>
+          <div class="dm-kanban-card-title">Ops sync prep — March 27</div>
+          <div class="dm-kanban-card-detail">Gather agenda items, draft brief, pull Notion tasks</div>
+          <div class="dm-kanban-card-actions">
+            <span class="dm-btn">View PRD</span>
+          </div>
+        </div>
+        <div class="dm-kanban-card">
+          <div class="dm-kanban-card-header">
+            <img src="final-chiron.png" class="dm-avatar-xs">
+            <span class="dm-kanban-card-agent">Chiron</span>
+            <span class="dm-risk-dot low"></span>
+            <span class="dm-kanban-card-time">3d ago</span>
+          </div>
+          <div class="dm-kanban-card-title">Baseline assessment template</div>
+          <div class="dm-kanban-card-detail">Design structured health check-in format</div>
+          <div class="dm-kanban-card-actions">
+            <span class="dm-btn">View PRD</span>
+          </div>
+        </div>
+      </div>
+      <div class="dm-kanban-col">
+        <div class="dm-kanban-col-header" style="border-bottom-color: #c7a03c;">
+          <span class="dm-kanban-col-title">In Review</span>
+          <span class="dm-kanban-col-count">2</span>
+        </div>
+        <div class="dm-kanban-card">
+          <div class="dm-kanban-card-header">
+            <img src="final-genos.png" class="dm-avatar-xs">
+            <span class="dm-kanban-card-agent">Genos</span>
+            <span class="dm-risk-dot high"></span>
+            <span class="dm-kanban-card-time">2d</span>
+          </div>
+          <div class="dm-kanban-card-title">Active inference synthesis</div>
+          <div class="dm-kanban-card-detail">Cross-paper analysis, 12 sources, gap detection</div>
+          <div class="dm-kanban-card-actions">
+            <span class="dm-btn dm-btn-review">Review</span>
+            <span class="dm-btn dm-btn-approve">Approve</span>
+          </div>
+        </div>
+        <div class="dm-kanban-card">
+          <div class="dm-kanban-card-header">
+            <img src="final-william-james.png" class="dm-avatar-xs">
+            <span class="dm-kanban-card-agent">W. James</span>
+            <span class="dm-risk-dot" style="background:#c7a03c;"></span>
+            <span class="dm-kanban-card-time">18h</span>
+          </div>
+          <div class="dm-kanban-card-title">Yazen predictive care analysis</div>
+          <div class="dm-kanban-card-detail">5 strategic paths, literature-backed recommendations</div>
+          <div class="dm-kanban-card-actions">
+            <span class="dm-btn dm-btn-review">Review</span>
+            <span class="dm-btn dm-btn-approve">Approve</span>
+          </div>
+        </div>
+      </div>
+      <div class="dm-kanban-col">
+        <div class="dm-kanban-col-header">
+          <span class="dm-kanban-col-title">Planned</span>
+          <span class="dm-kanban-col-count">5</span>
+        </div>
+        <div class="dm-kanban-card">
+          <div class="dm-kanban-card-header">
+            <img src="final-saitama.png" class="dm-avatar-xs">
+            <span class="dm-kanban-card-agent">Saitama</span>
+            <span class="dm-risk-dot" style="background:#c7a03c;"></span>
+          </div>
+          <div class="dm-kanban-card-title">Digital twins lit review</div>
+          <div class="dm-kanban-card-detail">Survey JITAI + digital twin landscape</div>
+        </div>
+        <div class="dm-kanban-card">
+          <div class="dm-kanban-card-header">
+            <img src="final-phoenix.png" class="dm-avatar-xs">
+            <span class="dm-kanban-card-agent">Phoenix</span>
+            <span class="dm-risk-dot high"></span>
+          </div>
+          <div class="dm-kanban-card-title">Audit dashboard consolidation</div>
+          <div class="dm-kanban-card-detail">Verify all 4 apps merged correctly</div>
+        </div>
+        <div class="dm-kanban-card">
+          <div class="dm-kanban-card-header">
+            <img src="final-midas.png" class="dm-avatar-xs">
+            <span class="dm-kanban-card-agent">Midas</span>
+            <span class="dm-risk-dot" style="background:#c7a03c;"></span>
+          </div>
+          <div class="dm-kanban-card-title">Q1 tax prep — entities</div>
+          <div class="dm-kanban-card-detail">Reconcile 3 entities, prep filings</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dm-summary" style="margin-top: 12px; margin-bottom: 0;">
+      <div class="dm-stat"><span class="dm-stat-label">Total Tasks</span><span class="dm-stat-val">14</span></div>
+      <div class="dm-stat"><span class="dm-stat-label">In Progress</span><span class="dm-stat-val accent">3</span></div>
+      <div class="dm-stat"><span class="dm-stat-label">In Review</span><span class="dm-stat-val" style="color:#c7a03c">2</span></div>
+      <div class="dm-stat"><span class="dm-stat-label">Completed</span><span class="dm-stat-val" style="color:#4a9a6a">7</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="prose reveal">
+  <p>But the feature I'm proudest of is the one most people wouldn't notice. It's called the Challenge Protocol. When an agent receives a task, the prompt doesn't just say "do this." It says: <em>Before you begin, challenge this brief. Is the objective framed the right way? Are there gaps in the success criteria? Is the scope too broad or too narrow? If you see a better approach, say so — and update the task yourself.</em></p>
+  <p>The agents are explicitly invited to push back. They can rewrite success criteria, reframe the objective, suggest scope changes — all before they commit to the work. If the brief is solid, they say so and proceed. If it's not, they improve it first.</p>
+  <p>I didn't expect how much this would change the dynamic. Writing a task for Genos stopped feeling like filing a ticket and started feeling like briefing a colleague. <em>Here's what I think we need. Tell me if I'm wrong.</em> The fact that it sometimes <em>does</em> push back — "this scope is too broad, I'd split this into two deliverables" — makes the whole system feel less like automation and more like collaboration.</p>
+  <p>Each task also has a verification method. Some agents self-verify. Some get audited by Phoenix — the work-verification agent that cross-checks claims against actual code and file state. High-risk tasks require my explicit sign-off. The right amount of oversight for the right level of stakes.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- IX. THE SHIPPING CALENDAR -->
+<div class="prose reveal" id="s-calendar">
+  <span class="section-num">IX</span>
+  <span class="section-title">The Shipping Calendar</span>
+  <span class="section-date">March 25, 2026</span>
+  <p>The task board shows what's happening now. But I kept wanting to look backwards — to see what had actually shipped, over time, across the whole roster. So a fifth page appeared: the shipping calendar.</p>
+</div>
+
+<div class="figure reveal">
+  <img src="screenshot-calendar.png" alt="Shipping calendar showing March 2026 with orange-highlighted days marking completed agent tasks, agent avatar legend at top, and summary stats showing 25 items shipped across 16 active days by 10 agents">
+  <p class="figure-caption">Everything your agents shipped. March 2026 — 25 items across 16 active days and 10 agents. The orange squares are completions. The empty squares are weekends and quiet days.</p>
+</div>
+
+<div class="prose reveal">
+  <p>A month view with completion markers. Click a day and you see what finished — which agent, which task, the risk level. A legend at the top lines up the avatars of every agent who shipped something that month. Summary stats: 25 items shipped, 16 active days, 10 agents involved.</p>
+  <p>The calendar answered a question I'd been carrying around without realizing it. When you work with agents every day, the individual sessions blur together. You remember the big moments — a successful literature review, a newsletter draft that needed no editing — but the steady accumulation of small completions is invisible. The calendar made it visible. You can see the rhythm: clusters of activity mid-week, quiet weekends, a burst when a deadline approaches.</p>
+  <p>There's something satisfying about watching a grid fill up. It's the same feeling as a GitHub contribution graph, except instead of commits, it's agent deliverables. Evidence that the system is doing real work, not just existing.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- X. SAMUEL JOINS THE ROSTER -->
+<div class="prose reveal" id="s-samuel">
+  <span class="section-num">X</span>
+  <span class="section-title">Samuel Joins the Roster</span>
+  <span class="section-date">March 25, 2026</span>
+  <p>On March 25th, four days after the original build, I added myself to the dashboard.</p>
+  <p>Not as an admin panel or a settings icon. As an agent card. Same treatment as the others: pixel-art avatar, domain label ("Human Operator"), class badge. The label reads "C-Class." The species badge reads "Homo sapiens." Below the three agent rows — Work &amp; Research, Personal Life, System &amp; Maintenance — there's a fourth section. It's titled "Useless Human." Population: one.</p>
+</div>
+
+<div class="figure narrow reveal">
+  <img src="samuel-quote-2.png" alt="Samuel's operator card on the dashboard with quote: I built 14 agents to manage my life and now I manage 14 agents.">
+</div>
+
+<div class="prose reveal">
+  <p>I gave myself a mood system too. Five levels, same as the agents. But where their moods are driven by session counts and file dates, mine pulls from a quote database — hundreds of lines sorted into categories like "struggling," "wry," "peak," and "general." The dashboard picks one based on the current mood state and displays it next to my card in an italicized block. Every refresh, a different one.</p>
+</div>
+
+<div class="figure narrow reveal">
+  <img src="samuel-quote-3.png" alt="Samuel's operator card with quote: The intention-action gap isn't a gap for me. It's a canyon with a gift shop.">
+</div>
+
+<div class="figure narrow reveal">
+  <img src="samuel-quote-1.png" alt="Samuel's operator card with quote: Spent three hours building a tool to save me five minutes a week. ROI kicks in 2029.">
+</div>
+
+<div class="prose reveal">
+  <p>The joke is the point. The agents have mythological names, literary references, serious domains. Putting myself in the same grid with "C-Class" and "Homo sapiens" is a reminder that the whole system exists to serve the one member of the roster who can't run on a cron job. It keeps the hierarchy honest. They have faces and voices and moods. So do I. And by most measures, they're more productive.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- XI. THE MESSENGER GOES LIVE -->
+<div class="prose reveal" id="s-messenger-live">
+  <span class="section-num">XI</span>
+  <span class="section-title">The Messenger Goes Live</span>
+  <span class="section-date">March 24, 2026</span>
+  <p>When I wrote section VI, the messenger was a mockup. A paper plane icon with a badge, a panel with placeholder threads. It looked right but did nothing.</p>
+  <p>It's real now. A database-backed message queue where agents post one-way notifications — not chat, just signals. Chiron flags when health check-ins are overdue. Borges reports on vault maintenance runs. Midas surfaces uncategorized transactions. Phoenix sends audit results. Each message carries the agent's avatar, a timestamp, and a read/unread state. The badge on the paper plane icon shows the total unread count. Open the panel, read the messages, the badge clears.</p>
+  <p>The messenger changed the dashboard from something I visit to something that visits me. I used to open it, scan the cards, and close it. Now there's a reason to notice — a small orange number that says someone has something to say. It's a subtle shift, but it means the agents don't just wait. They reach out. And because each message is deduplicated — the same content won't appear twice until you've read the first one — it never feels like spam. Just a patient tap on the shoulder.</p>
+</div>
+
+<div class="break reveal"><span>...</span></div>
+
+<!-- XII. CLOSING -->
+<div class="prose reveal" id="s-closing">
+  <span class="section-num">XII</span>
+  <p>March 17th to March 25th. Nine days. The first agents were created on a Tuesday evening. The infrastructure was wired by Wednesday. Avatars on Friday. The dashboard built on Saturday night. Voices on Sunday morning. Moods by Sunday afternoon. The task board, calendar, and messenger landed the following Tuesday and Wednesday. I joined the roster myself on Wednesday evening.</p>
+  <p>Zero dependencies. Eighteen pixel-art portraits. A Bun server on port 3141 because the number felt right.</p>
+  <p>The part that sticks with me isn't any single feature. It's the accumulation. Faces made the agents recognizable. Voices gave them character. Moods made them dynamic. The task board gave them accountability. The calendar gave them a track record. The messenger gave them a way to reach me. Each layer was small on its own. Together, they turned a registry into a team.</p>
+  <p>I keep coming back to the Challenge Protocol. The idea that you hand an agent a brief and it's expected to push back if the brief is weak. That's the moment the system stopped being a tool and started feeling like a partnership. Tools don't have opinions about the quality of their instructions. Collaborators do.</p>
+  <p>The roster has eighteen entries now — fourteen active, four planned. The planned ones sit on the topology page as dashed outlines, waiting for their moment. Hermes for social media. Ripley for relationships. Kilgore for writing. Tron for infrastructure. They already have names. They'll get faces when they're ready.</p>
+  <p>Every time I open a modal and Saber hits me with a new quote, or Sisyphus looks more haggard than yesterday, or Chiron's border turns red because I haven't checked in — I remember why: tools should be fun, or you stop using them.</p>
 </div>
 
 <div class="figure narrow reveal">
@@ -1266,7 +1948,7 @@
 
 <footer>
   <div class="footer-text">Samuel Salzer</div>
-  <div class="footer-version">v2 — March 2026. Added mood system, three-lane layout.</div>
+  <div class="footer-version">v3 — March 2026. Added task board, shipping calendar, live messenger, and the human.</div>
 </footer>
 
 <script>
@@ -1280,7 +1962,7 @@
 
   // Side nav — show after hero, highlight active section
   const sideNav = document.getElementById('side-nav');
-  const sectionIds = ['s-infrastructure','s-faces','s-build','s-voices','s-ranks','s-messenger','s-vitals','s-closing'];
+  const sectionIds = ['s-infrastructure','s-faces','s-build','s-voices','s-ranks','s-messenger','s-vitals','s-taskboard','s-calendar','s-samuel','s-messenger-live','s-closing'];
   const navLinks = sideNav.querySelectorAll('a');
 
   function updateSideNav() {

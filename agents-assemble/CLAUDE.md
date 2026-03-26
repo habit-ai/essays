@@ -7,10 +7,6 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #5172 | 9:46 PM | 🟣 | Agent messaging system added to dashboard essay | ~433 |
-| #5161 | 9:40 PM | 🟣 | Agents Assemble Essay Enhanced with Larger Avatar Grid and Sisyphus Story | ~388 |
-| #5158 | 9:39 PM | 🟣 | "Agents Assemble" Essay Published | ~464 |
-| #5155 | " | 🟣 | "Agents Assemble" essay created | ~426 |
-| #5141 | 9:36 PM | 🟣 | The Roster essay published with agent dashboard narrative | ~304 |
-| #5136 | 9:35 PM | 🟣 | "The Roster" essay added to essays index | ~343 |
+| #5194 | 10:24 PM | 🟣 | Interactive messenger mockup added to Agents Assemble essay | ~258 |
+| #5189 | 10:06 PM | 🔄 | Essay directories renamed to match titles | ~326 |
 </claude-mem-context>
