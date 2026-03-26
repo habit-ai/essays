@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agents Assemble</title>
-<meta name="description" content="Eighteen AI agents lived in my terminal. I built a dashboard to see them. Faces, moods, task boards, and vital signs followed.">
+<meta name="description" content="Building a command center for eighteen AI agents — faces, moods, task boards, and vital signs. Accidentally giving them souls along the way.">
 <meta property="og:title" content="Agents Assemble">
-<meta property="og:description" content="Eighteen agents lived in my terminal. I couldn't see any of them.">
+<meta property="og:description" content="Building a command center for eighteen AI agents — and accidentally giving them personalities along the way.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://samuel-essays.vercel.app/agents-assemble/dashboard-overview.png">
 <meta property="og:url" content="https://samuel-essays.vercel.app/agents-assemble/">
 <meta property="og:site_name" content="Samuel Salzer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Agents Assemble">
-<meta name="twitter:description" content="Eighteen agents lived in my terminal. I couldn't see any of them.">
+<meta name="twitter:description" content="Building a command center for eighteen AI agents — and accidentally giving them personalities along the way.">
 <meta name="twitter:image" content="https://samuel-essays.vercel.app/agents-assemble/dashboard-overview.png">
 <meta name="author" content="Samuel Salzer">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -1211,7 +1211,7 @@
   <div class="hero-label">March 2026</div>
   <h1 class="hero-title">Agents Assemble</h1>
   <div class="hero-line"></div>
-  <p class="hero-subtitle">Eighteen agents lived in my terminal. I couldn't see any of them.</p>
+  <p class="hero-subtitle">Building a command center for eighteen AI agents — and accidentally giving them personalities along the way.</p>
   <div class="hero-scroll">
     <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
   </div>
@@ -1222,10 +1222,10 @@
   <span class="section-num">I</span>
   <span class="section-title">The Invisible Infrastructure</span>
   <span class="section-date">March 17–18, 2026</span>
-  <p>By mid-March, I had eleven AI agents running out of my terminal. They'd been accumulating for weeks. Chiron tracked my health. Midas managed finances across three entities. Genos maintained a research paper database. Saber curated my taste profile. Sisyphus drafted my newsletter by coordinating four sub-agents in parallel. A few were polished. Most were held together with hooks and good intentions.</p>
-  <p>They had enforcement policies, session logs, shared context files. An entire infrastructure humming along in <em>~/.claude/</em>. Hooks that fired on every tool call. A JSONL log growing by the day. All of it wired together across several evenings.</p>
-  <p>But I couldn't see any of it. Checking on an agent meant grepping log files. Knowing whether one was working meant reading its output directory by hand. I had eleven employees and no way to take attendance.</p>
-  <p>I didn't need more agents. I needed to see the ones I had.</p>
+  <p>By March 18th, I had eleven AI agents running out of my terminal. Each one specialized. Chiron tracked my health. Midas managed finances across three entities. Genos maintained a research paper database. Saber curated my taste profile. Sisyphus drafted my newsletter by coordinating four sub-agents in parallel.</p>
+  <p>They had enforcement policies, session logs, shared context files. An entire infrastructure humming along in <em>~/.claude/</em>. Hooks that fired on every tool call. A JSONL log with 207 lifecycle events. All of it built between March 17th and 18th — two evenings of wiring hooks, writing enforcement profiles, and configuring session loggers.</p>
+  <p>But I couldn't see any of it. Checking on an agent meant grepping through log files. Verifying one was working meant reading its learnings directory by hand. I had no way to know, at a glance, which agents had been active that week, which had stale data, or whether the automation was actually running.</p>
+  <p>I needed a dashboard. Not a monitoring tool — something that felt like mine.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
@@ -1234,8 +1234,8 @@
 <div class="prose reveal" id="s-faces">
   <span class="section-num">II</span>
   <span class="section-title">Faces</span>
-  <p>Before the dashboard, the agents needed faces. They already had names from mythology, anime, and literature. Chiron the centaur trainer. Borges the librarian. Saitama the overpowered hero who finds everything too easy. But names in a terminal are just strings.</p>
-  <p>The aesthetic was immediate: 1-bit pixel art. Black and white. No color, no gradients, no anti-aliasing. The constraint was the point. Like a Macintosh icon from 1984, each character had to read through composition alone.</p>
+  <p>Before the dashboard, the agents needed faces. They already had names drawn from mythology, anime, and literature — Chiron the centaur trainer, Borges the librarian, Saitama the overpowered hero who finds everything too easy. But names in a terminal only go so far.</p>
+  <p>The aesthetic was decided immediately: 1-bit pixel art. Black and white. No color, no gradients, no anti-aliasing. The constraint was the point. Like a Macintosh icon from 1984, each character had to be recognizable through pure composition alone.</p>
 </div>
 
 <div class="figure reveal">
@@ -1244,7 +1244,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>I started with ChatGPT. The results were technically impressive and completely wrong. Saitama came back with a yellow cape. The mythological figures looked like textbook illustrations. Good art, wrong project.</p>
+  <p>I started with ChatGPT. The results were technically impressive and completely wrong. A Saitama came back with a yellow cape rendered in full color — missing the entire point of the constraint. The mythological figures looked like textbook illustrations. Good art, wrong project.</p>
 </div>
 
 <div class="compare reveal">
@@ -1259,7 +1259,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>So I built a conversion pipeline. Gemini for base images, then a Bun script to quantize them down to 80x80 in strict 1-bit. No gray, no compromise. For each agent, 24 variants across dithering algorithms and thresholds. Scan the grid, pick the one with the right expression.</p>
+  <p>So I built a pipeline instead. Gemini generated base images at high resolution, then a Bun script quantized them to an 80x80 grid in strict 1-bit — no gray, no compromise — and scaled them up to 640x640 for crisp rendering. For each agent, the script ran parameter sweeps: 24 variants across dithering algorithms and thresholds. I'd scan the grid and pick the one with the right expression.</p>
 </div>
 
 <div class="figure reveal">
@@ -1268,9 +1268,9 @@
 </div>
 
 <div class="prose reveal">
-  <p>William James was the hardest. The father of American psychology has a recognizable face. The beard, the penetrating gaze. But at 80x80 pixels in pure black and white, he kept coming out as a generic Victorian gentleman. Five versions before he read as distinctly <em>him</em>.</p>
+  <p>William James was the hardest. The father of American psychology has a recognizable face — the beard, the penetrating gaze — but at 80x80 pixels in pure black and white, he kept coming out as a generic Victorian gentleman. Five versions before he read as distinctly <em>him</em>.</p>
   <p>But the best story was Sisyphus.</p>
-  <p>His original image was this heavy-browed, thick-necked strongman. Looked like he <em>chose</em> to push the boulder. Fit, powerful, unbothered. The problem was that the bearded sage I'd generated for Chiron looked too ancient for a health coach. So the two got swapped. The sage became Chiron. Sisyphus needed a new face.</p>
+  <p>His original image was this heavy-browed, thick-necked strongman. Looked like he <em>chose</em> to push the boulder. Fit, powerful, unbothered. The problem was that the bearded sage I'd generated for Chiron looked too ancient and wise for a health coach — so the two got swapped. The sage became Chiron. And suddenly Sisyphus needed a new face.</p>
   <p>The prompt became: <em>make him look like he's been pushing a boulder forever.</em></p>
 </div>
 
@@ -1292,8 +1292,8 @@
 </div>
 
 <div class="prose reveal">
-  <p>Each iteration made him more wretched. Gaunt, hollow-eyed, messy hair. The kind of face that's been doing the same thing for millennia and knows it will never end. The newsletter agent. The one that curates and drafts and ships every week, forever. He deserved to look exactly this tired.</p>
-  <p>One rule I hadn't expected: canvas fill matters. Early avatars filled maybe 40% of the frame and looked lost on the dashboard cards. I re-rendered the entire batch at 70-80% fill, heads near the top.</p>
+  <p>Each iteration made him more wretched. Gaunt, hollow-eyed, messy hair. Visible collarbones. The kind of face that's been doing the same thing for millennia and knows it will never end. The newsletter agent — the one that curates and drafts and ships every week, forever — deserved to look exactly this tired.</p>
+  <p>One rule emerged that I hadn't expected: canvas fill matters. Early avatars filled maybe 40% of the frame and looked lost on the cards. I set a guideline — 70-80% fill, heads near the top — and re-rendered the entire batch.</p>
 </div>
 
 <div class="figure narrow reveal">
@@ -1324,10 +1324,10 @@
   <span class="section-num">III</span>
   <span class="section-title">The Build</span>
   <span class="section-date">Saturday, March 21, 2026</span>
-  <p>Saturday evening. I knew I wanted the dashboard but not exactly how. So I had Claude audit the full agent infrastructure first. Eleven agents, 118 tools, enforcement profiles, hooks, cross-agent context files. More complex than I'd realized.</p>
-  <p>Then I found a zip file in my Downloads called "Agent Dashboard.zip." A complete HTML mockup with simulated data. I don't remember making it. Probably a Claude artifact from weeks earlier. But it was exactly the starting point I needed.</p>
-  <p>A Bun server on port 3141. No framework, no bundler, no dependencies. Vanilla JavaScript. A hardcoded registry because the canonical list should be explicit, not discovered from the filesystem. Departure Mono for the type. Warm cream and burnt orange, because corporate gray is a moral failing.</p>
-  <p>Two hours later, four pages.</p>
+  <p>Saturday evening, March 21st. I sat down knowing I wanted to build the dashboard but not exactly how. The first thing I did was have Claude audit the full agent infrastructure — every definition file, every hook, every log. The result: 11 active agents, 118+ tools, enforcement profiles, observability hooks, cross-agent context files. More complex than I'd realized.</p>
+  <p>Then I found something I'd forgotten about: a zip file in my Downloads called "Agent Dashboard.zip." A complete HTML mockup with simulated data and placeholder avatars. I don't remember making it. It might have been a Claude artifact from weeks earlier. But it was exactly the reference I needed.</p>
+  <p>The architecture was deliberately simple. A Bun server on port 3141. Zero dependencies — no React, no framework, no bundler. Vanilla JavaScript with 30-second polling. A hardcoded registry, because the canonical list should be explicit, not discovered from the filesystem. Departure Mono for the typography. Warm cream background, burnt orange accent. No blue. No corporate gray.</p>
+  <p>By 10:47 PM — roughly two hours after starting — I had four pages.</p>
 </div>
 
 <div class="figure reveal">
@@ -1336,7 +1336,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>The overview showed every agent as a card with its pixel portrait, session count, and class badge. Below it, automations showing what runs on schedule and a live activity feed tailing the session log. At a glance: who's working, who's idle, what just happened.</p>
+  <p>The overview was the front page — every agent as a card with its pixel portrait, domain, session count, and class badge. Below it, a row of automations showing what runs on schedule, and a live activity feed tailing the JSONL session log. At a glance: who's active, who's idle, what just happened.</p>
 </div>
 
 <div class="figure reveal">
@@ -1345,7 +1345,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>The topology mapped relationships I hadn't fully noticed. Data dependencies, shared tools, consultation lines. Sisyphus at the bottom, orchestrating four sub-agents. Saber off to the side, connected to almost nothing. The loner of the roster.</p>
+  <p>The topology page mapped relationships I hadn't fully seen before. Data dependencies, shared tools, consultation lines. Sisyphus at the bottom, orchestrating four sub-agents. Saber off to the side, connected to almost nothing — the loner of the roster. Below the graph, a tool registry showing every script and which agents have access. Eighteen tools across the ecosystem, each with explicit ownership.</p>
 </div>
 
 <div class="figure reveal">
@@ -1354,7 +1354,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>The stats page parsed every session from the log. Sisyphus led with 11 sessions. Saber close behind. Half the roster had never been formally invoked. They existed as definitions waiting for their first real task.</p>
+  <p>The stats page parsed every session from the JSONL log — pairing start and stop events, computing durations, flagging orphans where an agent started but never stopped (probably crashed). Sisyphus led with 11 sessions. Saber close behind with 10. Half the roster had never been formally invoked yet — they existed as definitions waiting for their first real task.</p>
 </div>
 
 <div class="figure reveal">
@@ -1363,7 +1363,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>The queues page was the surprise. I'd planned to show automated metrics. Useful but lifeless. I pivoted to a manual kanban: three columns, tasks I write myself, assigned to specific agents. The dashboard went from something I watch to something I use.</p>
+  <p>The queues page was the surprise. I'd originally planned to pull automated data — pending reviews, learnings counts, context file health. Useful but lifeless. I pivoted to a manually-maintained kanban: three columns, tasks I write myself, each assigned to a specific agent. A "Start" button that opens a terminal session with context pre-loaded. The dashboard went from something I watch to something I use to direct.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
@@ -1373,8 +1373,8 @@
   <span class="section-num">IV</span>
   <span class="section-title">Voices</span>
   <span class="section-date">Sunday, March 22, 2026</span>
-  <p>Sunday morning. I was staring at an agent modal. Name, face, domain, tools, session history. Complete. Completely lifeless.</p>
-  <p>The agents had faces. No voice. I started writing taglines.</p>
+  <p>Sunday morning, March 22nd. I was staring at an agent modal — the expanded view you get when you click a card. Name, face, domain, tools, session history. Complete. And completely lifeless.</p>
+  <p>The agents had faces now. But no voice. I started writing taglines.</p>
 </div>
 
 <div class="tagline-list reveal">
@@ -1423,8 +1423,8 @@
 </div>
 
 <div class="prose reveal">
-  <p>A single tagline felt static, so I added a quotes array. Every time you open a modal, it picks from a pool. Saber cycles through Red Rocket quotes. Phoenix mixes courtroom drama with developer humor. Saitama: <em>"Why is it so easy?"</em></p>
-  <p>Ten lines of code. But the dashboard went from something I check to something I enjoy checking. The agents stopped being registry entries and started feeling like a cast.</p>
+  <p>A single tagline felt static, so I added a quotes array alongside each one. Now every time you open a modal, it randomly picks from a pool of catchphrases. Saber cycles through five Red Rocket quotes. Phoenix mixes courtroom drama with developer humor. Saitama channels bored overpoweredness: <em>"Why is it so easy?"</em></p>
+  <p>Technically trivial — a <em>pickQuote()</em> function, maybe ten lines of code. But the dashboard went from something I check to something I enjoy checking. The agents stopped being entries in a registry and started feeling like a cast.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
@@ -1433,9 +1433,9 @@
 <div class="prose reveal" id="s-ranks">
   <span class="section-num">V</span>
   <span class="section-title">Ranks</span>
-  <p>The tier labels were clinical. T1, T2, T3. These agents had faces and voices. They needed a ranking system with more character.</p>
+  <p>The tier labels — T1, T2, T3 — were clinical. These agents had faces and voices now. They needed a ranking system with more character.</p>
   <p>I borrowed from anime: C Class, B Class, A Class, S Class.</p>
-  <p>C Class agents have a definition and nothing else. B Class have a skill, session modes, learnings. The core roster. A Class orchestrate other agents. Sisyphus spawns four sub-agents to produce the newsletter. Saitama coordinates parallel literature searches.</p>
+  <p>C Class agents have a definition and nothing else. Manual invocation only. B Class have a skill, session modes, learnings — the core roster. A Class orchestrate other agents. Sisyphus spawns four sub-agents to produce the newsletter. Saitama coordinates parallel literature searches and runs quality gates on the results.</p>
   <p>S Class remains empty. I'm not sure what earns it yet.</p>
 </div>
 
@@ -1445,11 +1445,11 @@
 <div class="prose reveal" id="s-messenger">
   <span class="section-num">VI</span>
   <span class="section-title">The Messenger</span>
-  <p>The last addition changed the relationship the most. A small paper plane icon in the corner. Click it and a panel slides open. Threads grouped by agent, each with their avatar and a short message.</p>
+  <p>The last addition was the one that changed the relationship. A small paper plane icon in the bottom-right corner. Click it, and a panel slides open — threads grouped by agent, each one with their avatar and a short message.</p>
   <p>The agents could now message me.</p>
-  <p>Not as chat. One-way notifications. Chiron nudges when I haven't logged a health check-in. Borges flags stale content in the vault. Midas surfaces transactions waiting for categorization. A lightweight script checks conditions every few hours and sends reminders on their behalf.</p>
-  <p>If an unread message with the same content already exists, it gets suppressed. No spam. One reminder until acknowledged.</p>
-  <p>It's a small thing. The difference between agents that wait for you and agents that reach out.</p>
+  <p>Not as chat. One-way notifications. Chiron nudges when I haven't logged a health check-in. Borges flags stale content in the vault. Midas surfaces new transactions waiting for categorization. A lightweight script runs every few hours, checks conditions, and sends reminders on behalf of agents — no full session required.</p>
+  <p>The deduplication was important: if an unread message with the same content already exists, it gets suppressed. No spam. Just one gentle reminder until acknowledged. Opening a thread marks everything as read. See the badge, read the message, get on with your day.</p>
+  <p>It's a small thing. But it's the difference between agents that wait for you to remember them and agents that reach out when something needs attention.</p>
 </div>
 
 <div class="messenger-demo reveal">
@@ -1515,8 +1515,8 @@
   <span class="section-num">VII</span>
   <span class="section-title">Vital Signs</span>
   <span class="section-date">Sunday, March 22, 2026</span>
-  <p>The faces were static. Sisyphus looked equally worn whether he was mid-publish or hadn't been invoked in three weeks. That felt wrong.</p>
-  <p>So each agent got five mood levels. L1 through L5. Five variations of the portrait, from depleted to thriving. The face on the card should tell you something about the agent's actual state.</p>
+  <p>The faces were static. Always the same expression, no matter what was happening. Sisyphus looked equally worn whether he was mid-publish-crunch or hadn't been invoked in three weeks. That felt wrong.</p>
+  <p>So I gave each agent five mood levels. L1 through L5. Five variations of each portrait — from depleted to thriving. The idea was simple: the face you see should tell you something about the agent's actual state.</p>
 </div>
 
 <div class="figure wide reveal">
@@ -1651,11 +1651,11 @@
 </div>
 
 <div class="prose reveal">
-  <p>The approaches are the part I like. Midas and William James follow the expected arc. Neglected on the left, thriving on the right. Straightforward. But Saitama barely changes. Squint at L1 and L5 and you might spot a different expression. He doesn't care enough to emote.</p>
-  <p>Sisyphus is inverted. He's a newsletter agent. His whole identity is the endless push. When he's healthy and rested, nothing is shipping. When he looks like death, that's publish week. That's the job. Prometheus maps to his myth: L1 is the eagle attack, L5 is the fire-bringer.</p>
-  <p>The signals are deliberately analog. No LLM calls. File dates, session counts, inbox sizes. Chiron's mood tracks health check-ins over seven days. Borges reflects how cluttered the Obsidian inbox is. Midas dims when bank imports are overdue.</p>
-  <p>Each mood carries a reason and an action. Hover over Borges at L1 and you see: <em>"Vault neglected, 23 inbox items, no triage in 14 days"</em> with a nudge to run <code>/borges triage</code>. The faces are a health check for the whole ecosystem.</p>
-  <p>The three-lane layout came at the same time. Agents split into rows: Work &amp; Research, Personal Life, System &amp; Maintenance. It made the dashboard scannable in a way the flat grid never was. One glance tells you where energy is concentrated and where things have gone quiet.</p>
+  <p>The range of approaches is the part I like most. Midas and William James follow the expected arc — neglected on the left, thriving on the right. Straightforward. But Saitama, the One Punch Man character who is bored by being too powerful, barely changes at all. Squint at L1 and L5 and you might notice a slightly different expression. That's the joke — he's imperceptible because he doesn't care.</p>
+  <p>Sisyphus is fully inverted. He's a newsletter agent. His whole identity is the endless push. When he's healthy and rested, it means nothing is shipping. When he looks like death — hair thinning, eyes hollow, boulder weighing him down — that's publish week. That's when he's doing his job. And Prometheus maps directly to his myth: L1 is the eagle attack, L5 is the blazing fire-bringer.</p>
+  <p>The signals that drive the moods are deliberately analog. No LLM calls. Just file dates, session counts, and inbox sizes. Chiron's mood is tied to how many health checkins exist in the past seven days. Borges reflects how cluttered the Obsidian inbox is. Midas dims when bank imports are overdue. The most digital system I've built runs on the most analog possible measurements.</p>
+  <p>Each mood also carries a reason and an optional action. Hover over Borges at L1 and you'll see: <em>"Vault neglected — 23 inbox items, no triage in 14+ days"</em> with a nudge to run <code>/borges triage</code>. It's not just decorative. The faces are a glanceable health check for the whole ecosystem.</p>
+  <p>The three-lane layout came at the same time. Agents split into three rows — Work &amp; Research, Personal Life, System &amp; Maintenance. Five newsletter and research agents in the first row, three personal agents in the second, five infrastructure agents in the third. It made the dashboard scannable in a way the flat grid never was. One glance tells you where energy is concentrated and where things have gone quiet.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
@@ -1665,10 +1665,10 @@
   <span class="section-num">VIII</span>
   <span class="section-title">The Task Board</span>
   <span class="section-date">March 25, 2026</span>
-  <p>Until this point, getting an agent to do something meant typing a slash command and hoping. No brief, no scope, no review gate. I'd invoke <code>/genos</code> with a paragraph of instructions and it would run until done or killed. For small tasks, fine. For anything ambitious, reckless.</p>
-  <p>So I built a task system. Not a to-do list. Every task is a small PRD: title, objective, success criteria, scope boundaries, deliverables. Before an agent starts, the task goes through a brief. When it finishes, the work gets reviewed.</p>
-  <p>What matters is risk. Each task gets a risk level and the review path changes accordingly. Low-risk work auto-completes. Medium-risk sits in review for forty-eight hours; if I don't weigh in, it auto-approves. High-risk blocks until I sign off.</p>
-  <p>The kanban shows it all at once. Five columns, risk badges and agent avatars on every card. At the top, an attention panel pins the tasks waiting on me, sorted by wait time.</p>
+  <p>Until now, getting an agent to do something meant typing a slash command and hoping for the best. There was no formal handoff — no brief, no scope, no review gate. I'd invoke <code>/genos</code> with a paragraph of instructions, and it would run until it was done or I killed it. For small tasks, that was fine. For anything ambitious, it was reckless.</p>
+  <p>So I built a task system. Not a to-do list — a proper work governance layer. Every task is a small PRD: a title, an objective, success criteria, scope boundaries, deliverables. Before an agent starts, the task goes through a brief. When it finishes, the work gets reviewed.</p>
+  <p>The part that matters is risk. Each task gets a risk level — low, medium, or high — and the review path changes accordingly. Low-risk work auto-completes. The agent finishes, the task closes, no one needs to look at it. Medium-risk tasks sit in review for forty-eight hours. If I don't weigh in, they auto-approve. High-risk work blocks until I explicitly sign off. Nothing ships unreviewed when the stakes are real.</p>
+  <p>The kanban board shows it all at once: five columns — In Progress, In Review, Planned, Completed, Cancelled — with risk badges and agent avatars on every card. At the top, an attention panel pins the medium and high-risk tasks that are waiting on me, sorted by how long they've been waiting. It's the "drop everything and look at this" surface I didn't know I needed.</p>
 </div>
 
 <div class="dashboard-mockup reveal">
@@ -1858,9 +1858,10 @@
 </div>
 
 <div class="prose reveal">
-  <p>The real value turned out to be simple: I can see what's been done and what hasn't. Which agents are carrying weight and which are definitions with no track record. Where my time went this week. Before the task board, that picture lived in my head, and my head is not a reliable system of record.</p>
-  <p>The tasks also invite pushback. If the brief is weak, the agent can rewrite success criteria or reframe the objective before committing. Sometimes it does. That's useful. But the visibility is the thing.</p>
-  <p>Some agents self-verify. Some get audited by Phoenix, the work-verification agent that cross-checks claims against actual file state. The right amount of oversight for the right level of stakes.</p>
+  <p>But the feature I'm proudest of is the one most people wouldn't notice. It's called the Challenge Protocol. When an agent receives a task, the prompt doesn't just say "do this." It says: <em>Before you begin, challenge this brief. Is the objective framed the right way? Are there gaps in the success criteria? Is the scope too broad or too narrow? If you see a better approach, say so — and update the task yourself.</em></p>
+  <p>The agents are explicitly invited to push back. They can rewrite success criteria, reframe the objective, suggest scope changes — all before they commit to the work. If the brief is solid, they say so and proceed. If it's not, they improve it first.</p>
+  <p>I didn't expect how much this would change the dynamic. Writing a task for Genos stopped feeling like filing a ticket and started feeling like briefing a colleague. <em>Here's what I think we need. Tell me if I'm wrong.</em> The fact that it sometimes <em>does</em> push back — "this scope is too broad, I'd split this into two deliverables" — makes the whole system feel less like automation and more like collaboration.</p>
+  <p>Each task also has a verification method. Some agents self-verify. Some get audited by Phoenix — the work-verification agent that cross-checks claims against actual code and file state. High-risk tasks require my explicit sign-off. The right amount of oversight for the right level of stakes.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
@@ -1870,7 +1871,7 @@
   <span class="section-num">IX</span>
   <span class="section-title">The Shipping Calendar</span>
   <span class="section-date">March 25, 2026</span>
-  <p>The task board shows what's happening now. I kept wanting to look backwards. What actually shipped, over time, across the whole roster. So a fifth page appeared.</p>
+  <p>The task board shows what's happening now. But I kept wanting to look backwards — to see what had actually shipped, over time, across the whole roster. So a fifth page appeared: the shipping calendar.</p>
 </div>
 
 <div class="figure reveal">
@@ -1879,9 +1880,9 @@
 </div>
 
 <div class="prose reveal">
-  <p>A month view with completion markers. Click a day to see what finished. Which agent, which task, the risk level. Summary stats: 25 items shipped, 16 active days, 10 agents involved.</p>
-  <p>The calendar answered a question I'd been carrying without realizing it. When you work with agents daily, individual sessions blur. You remember the big moments but the steady accumulation of small completions is invisible. The calendar made it visible. Clusters of activity mid-week. Quiet weekends. A burst when a deadline approaches.</p>
-  <p>Same feeling as a GitHub contribution graph, except instead of commits, it's agent deliverables.</p>
+  <p>A month view with completion markers. Click a day and you see what finished — which agent, which task, the risk level. A legend at the top lines up the avatars of every agent who shipped something that month. Summary stats: 25 items shipped, 16 active days, 10 agents involved.</p>
+  <p>The calendar answered a question I'd been carrying around without realizing it. When you work with agents every day, the individual sessions blur together. You remember the big moments — a successful literature review, a newsletter draft that needed no editing — but the steady accumulation of small completions is invisible. The calendar made it visible. You can see the rhythm: clusters of activity mid-week, quiet weekends, a burst when a deadline approaches.</p>
+  <p>There's something satisfying about watching a grid fill up. It's the same feeling as a GitHub contribution graph, except instead of commits, it's agent deliverables. Evidence that the system is doing real work, not just existing.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
@@ -1891,8 +1892,8 @@
   <span class="section-num">X</span>
   <span class="section-title">Samuel Joins the Roster</span>
   <span class="section-date">March 25, 2026</span>
-  <p>Four days after the original build, I added myself to the dashboard.</p>
-  <p>Not as an admin panel. As an agent card. Same treatment as the others: pixel-art avatar, domain label, class badge. The domain reads "Human Operator." The class reads "C-Class." The species badge reads "Homo sapiens." Below the three agent rows, a fourth section. It's titled "Useless Human." Population: one.</p>
+  <p>On March 25th, four days after the original build, I added myself to the dashboard.</p>
+  <p>Not as an admin panel or a settings icon. As an agent card. Same treatment as the others: pixel-art avatar, domain label ("Human Operator"), class badge. The label reads "C-Class." The species badge reads "Homo sapiens." Below the three agent rows — Work &amp; Research, Personal Life, System &amp; Maintenance — there's a fourth section. It's titled "Useless Human." Population: one.</p>
 </div>
 
 <div class="figure narrow reveal">
@@ -1900,7 +1901,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>I gave myself a mood system too. But where their moods track session counts and file dates, mine pulls from a quote database. Hundreds of lines sorted into categories like "struggling," "wry," and "peak." Every refresh, a different one.</p>
+  <p>I gave myself a mood system too. Five levels, same as the agents. But where their moods are driven by session counts and file dates, mine pulls from a quote database — hundreds of lines sorted into categories like "struggling," "wry," "peak," and "general." The dashboard picks one based on the current mood state and displays it next to my card in an italicized block. Every refresh, a different one.</p>
 </div>
 
 <div class="figure narrow reveal">
@@ -1912,7 +1913,7 @@
 </div>
 
 <div class="prose reveal">
-  <p>The joke is the point. The agents have mythological names, serious domains. Putting myself in the grid with "C-Class" and "Homo sapiens" keeps the hierarchy honest. By most measures, they're more productive.</p>
+  <p>The joke is the point. The agents have mythological names, literary references, serious domains. Putting myself in the same grid with "C-Class" and "Homo sapiens" is a reminder that the whole system exists to serve the one member of the roster who can't run on a cron job. It keeps the hierarchy honest. They have faces and voices and moods. So do I. And by most measures, they're more productive.</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
@@ -1922,9 +1923,9 @@
   <span class="section-num">XI</span>
   <span class="section-title">The Messenger Goes Live</span>
   <span class="section-date">March 24, 2026</span>
-  <p>When I wrote section VI, the messenger was a mockup. It looked right but did nothing.</p>
-  <p>It's real now. A database-backed message queue. Agents post one-way notifications. Chiron flags overdue check-ins. Borges reports on vault maintenance. Midas surfaces uncategorized transactions. Phoenix sends audit results. The badge shows unread count. Open the panel, read the messages, the badge clears.</p>
-  <p>The messenger changed the dashboard from something I visit to something that visits me. A small orange number that says someone has something to say.</p>
+  <p>When I wrote section VI, the messenger was a mockup. A paper plane icon with a badge, a panel with placeholder threads. It looked right but did nothing.</p>
+  <p>It's real now. A database-backed message queue where agents post one-way notifications — not chat, just signals. Chiron flags when health check-ins are overdue. Borges reports on vault maintenance runs. Midas surfaces uncategorized transactions. Phoenix sends audit results. Each message carries the agent's avatar, a timestamp, and a read/unread state. The badge on the paper plane icon shows the total unread count. Open the panel, read the messages, the badge clears.</p>
+  <p>The messenger changed the dashboard from something I visit to something that visits me. I used to open it, scan the cards, and close it. Now there's a reason to notice — a small orange number that says someone has something to say. It's a subtle shift, but it means the agents don't just wait. They reach out. And because each message is deduplicated — the same content won't appear twice until you've read the first one — it never feels like spam. Just a patient tap on the shoulder.</p>
 </div>
 
 <div class="figure reveal">
@@ -1937,11 +1938,12 @@
 <!-- XII. CLOSING -->
 <div class="prose reveal" id="s-closing">
   <span class="section-num">XII</span>
-  <p>Nine days. The agents existed before any of this. Some had been running for weeks, doing real work in the terminal. What happened in those nine days was that they became visible.</p>
-  <p>Faces made them recognizable. Voices gave them character. Moods made them dynamic. The task board gave them accountability and me a record of what I'd actually spent my time on. The calendar made the accumulation visible. The messenger gave them a way to reach me. Each layer was small. Together, they turned a directory of config files into something that felt like a team.</p>
-  <p>What I didn't expect was how the different types would start to matter. Some agents are task-focused: Genos researches, Sisyphus publishes, Midas categorizes. Others exist for system health: Phoenix audits work, Hammurabi codifies patterns, Borges maintains the vault. A few bridge both: Janus preps meetings and tracks follow-ups. The roster doesn't just grow. It gets stronger as agents start to cover for each other's gaps.</p>
-  <p>Eighteen entries now. Fourteen active, four planned. The planned ones sit on the topology page as dashed outlines. Hermes for social media. Ripley for relationships. Kilgore for writing. Tron for infrastructure. They already have names. They'll get faces when they're ready.</p>
-  <p>Every time I open the dashboard and Sisyphus looks more haggard than yesterday, or Chiron's border turns red because I haven't checked in, I remember the actual lesson: I built eighteen agents to manage my life and now I manage eighteen agents.</p>
+  <p>March 17th to March 25th. Nine days. The first agents were created on a Tuesday evening. The infrastructure was wired by Wednesday. Avatars on Friday. The dashboard built on Saturday night. Voices on Sunday morning. Moods by Sunday afternoon. The task board, calendar, and messenger landed the following Tuesday and Wednesday. I joined the roster myself on Wednesday evening.</p>
+  <p>Zero dependencies. Eighteen pixel-art portraits. A Bun server on port 3141 because the number felt right.</p>
+  <p>The part that sticks with me isn't any single feature. It's the accumulation. Faces made the agents recognizable. Voices gave them character. Moods made them dynamic. The task board gave them accountability. The calendar gave them a track record. The messenger gave them a way to reach me. Each layer was small on its own. Together, they turned a registry into a team.</p>
+  <p>I keep coming back to the Challenge Protocol. The idea that you hand an agent a brief and it's expected to push back if the brief is weak. That's the moment the system stopped being a tool and started feeling like a partnership. Tools don't have opinions about the quality of their instructions. Collaborators do.</p>
+  <p>The roster has eighteen entries now — fourteen active, four planned. The planned ones sit on the topology page as dashed outlines, waiting for their moment. Hermes for social media. Ripley for relationships. Kilgore for writing. Tron for infrastructure. They already have names. They'll get faces when they're ready.</p>
+  <p>Every time I open a modal and Saber hits me with a new quote, or Sisyphus looks more haggard than yesterday, or Chiron's border turns red because I haven't checked in — I remember why: tools should be fun, or you stop using them.</p>
 </div>
 
 <div class="figure narrow reveal">
@@ -1951,7 +1953,7 @@
 
 <footer>
   <div class="footer-text">Samuel Salzer</div>
-  <div class="footer-version">v3 — March 2026</div>
+  <div class="footer-version">v3 — March 2026. Added task board, shipping calendar, live messenger, and the human.</div>
 </footer>
 
 <script>
