@@ -1074,32 +1074,34 @@
   }
 
   .side-nav a::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--border-dark);
+    flex-shrink: 0;
+    transition: background 0.2s ease, width 0.2s ease;
+  }
+
+  .side-nav a::after {
     content: attr(data-num);
     font-family: 'DepartureMono', 'Geist Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.06em;
     color: var(--text-dim);
     width: 22px;
-    text-align: right;
+    text-align: left;
+    flex-shrink: 0;
     transition: color 0.2s ease;
   }
 
-  .side-nav a::after {
-    content: '';
-    display: block;
-    width: 18px;
-    height: 2px;
-    background: var(--border-dark);
-    transition: background 0.2s ease, width 0.2s ease;
-  }
-
   .side-nav a:hover::before {
-    color: var(--text-secondary);
+    background: var(--text-secondary);
+    width: 28px;
   }
 
   .side-nav a:hover::after {
-    background: var(--text-secondary);
-    width: 28px;
+    color: var(--text-secondary);
   }
 
   .side-nav a:hover .side-nav-label {
@@ -1119,13 +1121,13 @@
   }
 
   .side-nav a.active::before {
-    color: var(--copper);
-  }
-
-  .side-nav a.active::after {
     background: var(--copper);
     width: 28px;
     height: 3px;
+  }
+
+  .side-nav a.active::after {
+    color: var(--copper);
   }
 
   .side-nav a.active .side-nav-label {
@@ -1653,11 +1655,6 @@
   <p>The three-lane layout came at the same time. Agents split into three rows — Work &amp; Research, Personal Life, System &amp; Maintenance. Five newsletter and research agents in the first row, three personal agents in the second, five infrastructure agents in the third. It made the dashboard scannable in a way the flat grid never was. One glance tells you where energy is concentrated and where things have gone quiet.</p>
 </div>
 
-<div class="figure reveal">
-  <img src="screenshot-overview.png" alt="The agent ecosystem dashboard showing fourteen agents across three lanes — Work & Research, Personal Life, System & Maintenance — with mood borders and the Samuel operator card at the bottom">
-  <p class="figure-caption">The dashboard as it looks today. Fourteen agents in three lanes, each with a mood-driven left border — green for healthy, amber for needs attention, red for neglected. At the bottom: the human operator, filed under "Useless Human." More on that later.</p>
-</div>
-
 <div class="break reveal"><span>...</span></div>
 
 <!-- VIII. THE TASK BOARD -->
@@ -1926,6 +1923,11 @@
   <p>When I wrote section VI, the messenger was a mockup. A paper plane icon with a badge, a panel with placeholder threads. It looked right but did nothing.</p>
   <p>It's real now. A database-backed message queue where agents post one-way notifications — not chat, just signals. Chiron flags when health check-ins are overdue. Borges reports on vault maintenance runs. Midas surfaces uncategorized transactions. Phoenix sends audit results. Each message carries the agent's avatar, a timestamp, and a read/unread state. The badge on the paper plane icon shows the total unread count. Open the panel, read the messages, the badge clears.</p>
   <p>The messenger changed the dashboard from something I visit to something that visits me. I used to open it, scan the cards, and close it. Now there's a reason to notice — a small orange number that says someone has something to say. It's a subtle shift, but it means the agents don't just wait. They reach out. And because each message is deduplicated — the same content won't appear twice until you've read the first one — it never feels like spam. Just a patient tap on the shoulder.</p>
+</div>
+
+<div class="figure reveal">
+  <img src="screenshot-overview.png" alt="The agent ecosystem dashboard showing fourteen agents across three lanes — Work & Research, Personal Life, System & Maintenance — with mood borders and the Samuel operator card at the bottom">
+  <p class="figure-caption">The dashboard as it stands on March 26th. Fourteen agents in three lanes, each with a mood-driven left border — green for healthy, amber for needs attention, red for neglected. The human operator at the bottom, filed under "Useless Human."</p>
 </div>
 
 <div class="break reveal"><span>...</span></div>
