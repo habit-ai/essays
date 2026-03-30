@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    path, line, circle { fill: none; stroke: #c9a24a; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+  <!-- eye shape -->
+  <path d="M6 32C6 32 18 16 32 16s26 16 26 16-12 16-26 16S6 32 6 32Z" stroke-width="2.5"/>
+  <!-- strike-through (blind) -->
+  <line x1="14" y1="14" x2="50" y2="50" stroke-width="3"/>
+</svg>

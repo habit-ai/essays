@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Blind Oracles</title>
+<meta name="description" content="On the gap between what is spoken and what is meant, and why the most intelligent servants in history still cannot hear you.">
+<meta property="og:title" content="The Blind Oracles">
+<meta property="og:description" content="You have heard the stories. Someone climbed the mountain and came back changed. So you climb. The oracle builds for you — beautifully, competently, immediately. And it is wrong. The oracle is not broken. You are.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://samuel-essays.vercel.app/the-blind-oracles/img_oracle.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="1024">
+<meta property="og:url" content="https://samuel-essays.vercel.app/the-blind-oracles/">
+<meta property="og:site_name" content="Samuel Salzer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Blind Oracles">
+<meta name="twitter:description" content="On the gap between what is spoken and what is meant, and why the most intelligent servants in history still cannot hear you.">
+<meta name="twitter:image" content="https://samuel-essays.vercel.app/the-blind-oracles/img_oracle.png">
+<meta name="author" content="Samuel Salzer">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --void: #0c0b10;
+    --chamber: #13111a;
+    --stone: #1c1a24;
+    --text: #d8d0c4;
+    --text-bright: #ede7db;
+    --text-dim: #7d7688;
+    --flame: #c9a24a;
+    --flame-bright: #e4c462;
+    --ember: rgba(201,162,74,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 22px;
+    line-height: 1.85;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 50%, var(--chamber) 0%, var(--void) 70%);
+  }
+
+  .hero-eye {
+    width: 60px;
+    height: auto;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeIn 2s ease 0.3s forwards;
+  }
+
+  .hero-eye svg {
+    width: 60px;
+    height: 34px;
+    fill: none;
+    stroke: var(--flame);
+    stroke-width: 1.2;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--text-bright);
+    margin-bottom: 2.5rem;
+    line-height: 1.4;
+    opacity: 0;
+    animation: fadeIn 2s ease 0.8s forwards;
+  }
+
+  .hero-line {
+    width: 60px;
+    height: 1px;
+    background: var(--flame);
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeIn 2s ease 1.2s forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-dim);
+    max-width: 520px;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeIn 2s ease 1.5s forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeIn 2s ease 2.5s forwards, gentleBob 3s ease-in-out 3.5s infinite;
+  }
+
+  .hero-scroll svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text-dim);
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  /* ===== ILLUSTRATIONS ===== */
+  .illustration {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .illustration img {
+    max-width: 780px;
+    width: 85%;
+    height: auto;
+    display: block;
+  }
+
+  .illustration.small img {
+    max-width: 480px;
+    width: 55%;
+  }
+
+  /* ===== CONTENT ===== */
+  .content {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .content p {
+    margin-bottom: 1.6em;
+    text-align: left;
+    hyphens: auto;
+    text-indent: 0;
+  }
+
+  .content p + p {
+    text-indent: 1.5em;
+  }
+
+  .content > .reveal:last-child p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Silence between sections — pure dark space */
+  .silence {
+    height: 120px;
+  }
+
+  .silence-line {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .silence-line::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--flame);
+    opacity: 0.4;
+  }
+
+  .drop-cap::first-letter {
+    font-family: 'Cinzel', serif;
+    float: left;
+    font-size: 4.2em;
+    line-height: 0.8;
+    padding-right: 0.1em;
+    padding-top: 0.05em;
+    color: var(--flame);
+    font-weight: 400;
+  }
+
+  em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--flame-bright);
+  }
+
+  .inline-quote {
+    font-weight: 500;
+    color: var(--text-bright);
+  }
+
+  .greek {
+    font-style: italic;
+    letter-spacing: 0.03em;
+    color: var(--flame-bright);
+  }
+
+  /* ===== PASSAGE (The Contract) ===== */
+  .passage {
+    margin: 3rem 0;
+    padding: 2.5rem 2rem;
+    position: relative;
+    background: var(--chamber);
+    border-left: 2px solid var(--flame);
+  }
+
+  .passage p {
+    font-size: 0.95em;
+    font-weight: 400;
+    line-height: 1.85;
+    color: var(--text);
+    text-indent: 0 !important;
+    text-align: left;
+    letter-spacing: 0.01em;
+  }
+
+  .passage p + p {
+    margin-top: 1.2em;
+    text-indent: 0 !important;
+  }
+
+  /* ===== CLOSING ===== */
+  .closing {
+    text-align: center;
+    margin-top: 5rem;
+    padding: 3rem 0;
+  }
+
+  .closing::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--flame);
+    margin: 0 auto 3rem;
+  }
+
+  .closing p {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    color: var(--text-bright);
+    text-align: center;
+    text-indent: 0 !important;
+    line-height: 2.2;
+    text-transform: uppercase;
+  }
+
+  .closing .final {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--flame);
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+  }
+
+  .footer-eye {
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-eye svg {
+    width: 40px;
+    height: 22px;
+    fill: none;
+    stroke: var(--flame);
+    stroke-width: 1;
+    opacity: 0.4;
+  }
+
+  .footer-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.4em;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes gentleBob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(5px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    body { font-size: 19px; }
+    .content { padding: 2.5rem 1.5rem; }
+    .passage { padding: 2rem 1.5rem; }
+    .drop-cap::first-letter { font-size: 3.5em; }
+    .illustration img { width: 95%; }
+    .illustration.small img { width: 70%; }
+    .silence { height: 80px; }
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 18px; }
+    .hero { padding: 3rem 1.5rem; }
+    .content { padding: 2rem 1.2rem; }
+  }
+
+  @media print {
+    .hero-scroll { display: none; }
+    .hero { min-height: auto; padding: 2rem; background: white; }
+    body { background: white; color: #111; }
+  }
+
+  /* ===== BACK NAV ===== */
+  .back {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 100;
+  }
+
+  .back a {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .back a:hover {
+    color: var(--flame);
+  }
+
+  /* ===== SIDE NAV ===== */
+  .side-nav {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .side-nav.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 0;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .side-nav a::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--text-dim);
+    flex-shrink: 0;
+    order: 1;
+    transition: background 0.2s ease, width 0.2s ease;
+  }
+
+  .side-nav a::after {
+    content: attr(data-num);
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    order: 2;
+    transition: color 0.2s ease;
+  }
+
+  .side-nav-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+    white-space: nowrap;
+    text-transform: uppercase;
+    opacity: 0;
+    order: 3;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .side-nav a:hover::before { background: var(--text); width: 24px; }
+  .side-nav a:hover::after { color: var(--text); }
+  .side-nav a:hover .side-nav-label { opacity: 1; }
+  .side-nav a.active::before { background: var(--flame); width: 24px; height: 2px; }
+  .side-nav a.active::after { color: var(--flame); }
+  .side-nav a.active .side-nav-label { opacity: 1; color: var(--flame); }
+
+  @media (max-width: 1000px) {
+    .side-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="back">
+  <a href="/">&#60; essays</a>
+</nav>
+
+<nav class="side-nav" id="side-nav">
+  <a href="#s-climb" data-num="I"><span class="side-nav-label">The Climb</span></a>
+  <a href="#s-delphi" data-num="II"><span class="side-nav-label">Delphi</span></a>
+  <a href="#s-silences" data-num="III"><span class="side-nav-label">Three Silences</span></a>
+  <a href="#s-tantalus" data-num="IV"><span class="side-nav-label">Tantalus</span></a>
+  <a href="#s-interview" data-num="V"><span class="side-nav-label">The Interview</span></a>
+  <a href="#s-contract" data-num="VI"><span class="side-nav-label">The Contract</span></a>
+</nav>
+
+<header class="hero">
+  <div class="hero-eye">
+    <svg viewBox="0 0 60 34">
+      <path d="M2 17C2 17 14 3 30 3s28 14 28 14-12 14-28 14S2 17 2 17Z"/>
+      <line x1="10" y1="5" x2="50" y2="29" stroke-width="1.8"/>
+    </svg>
+  </div>
+  <h1 class="hero-title">The Blind<br>Oracles</h1>
+  <div class="hero-line"></div>
+  <p class="hero-subtitle">On the gap between what is spoken and what is meant,<br>and why the most intelligent servants in history<br>still cannot hear you</p>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</header>
+
+<div class="illustration reveal">
+  <img src="img_oracle.png" alt="A blindfolded oracle on a throne, rendered in raised golden Braille-like dots on dark indigo">
+</div>
+
+<article class="content" id="s-climb">
+  <div class="reveal">
+    <p class="drop-cap">You have heard the stories. Everyone has heard the stories. Someone climbed the mountain and came back changed &mdash; their business rebuilt in an afternoon, their scattered finances suddenly legible, their half-finished book completed before lunch. They describe the oracle in terms that border on the religious: it knows everything, it never sleeps, it works for almost nothing, it has read every book your civilization has produced and several your civilization has forgotten. You hear this enough times and you begin to feel that the only thing standing between you and transformation is the climb itself.</p>
+  </div>
+
+  <div class="reveal">
+    <p>So you climb. You make the journey. You arrive at the temple, breathless and expectant, and the oracle is there &mdash; exactly as described. Vast, learned, patient, impossibly capable. You state your request. It begins to work. And what it produces is&hellip; fine. Competent. Technically adequate. It has built you something no one asked for, in a voice that belongs to no one, solving a problem you did not quite have. You descend the mountain carrying a portrait of a stranger and a faint, monarchical sense of betrayal.</p>
+  </div>
+
+  <div class="reveal">
+    <p>You blame the oracle. Everyone blames the oracle. The oracle, you conclude, is overrated &mdash; perhaps fraudulent, perhaps merely average dressed in the language of the miraculous. You are wrong. The oracle is everything they promised. The failure is not in the temple. It is in the supplicant.</p>
+  </div>
+
+  <div class="reveal">
+    <p>We are, of course, talking about artificial intelligence. We are talking about the most capable tools ever handed to the species &mdash; tools that can write, reason, build, analyze, and create at a speed and scale that would have seemed hallucinatory five years ago. And we are talking about the fact that most people who use them walk away disappointed, convinced the technology is shallow, when what is actually shallow is the instruction. If you have ever told an AI to do something, received something competent and soulless in return, and concluded that AI is not ready &mdash; this essay is about you. It is about why the oracle failed, and it is not the reason you think.</p>
+  </div>
+</article>
+
+<div class="silence"></div>
+
+<div class="illustration reveal">
+  <img src="img_silences.png" alt="A cloaked figure holding a lantern into darkness, golden Braille dots forming the light that cannot reach beyond the void">
+</div>
+
+<article class="content" id="s-delphi">
+  <div class="reveal">
+    <p>Above the entrance to the temple of Apollo at Delphi, the Greeks carved two words into the stone: <span class="greek">&Gamma;&nu;&omicron;&sigmaf;&theta;&iota; &sigma;&epsilon;&alpha;&upsilon;&tau;&omicron;&nu;</span>. <em>Know thyself.</em> This was not a philosophical platitude. It was not decorative. It was a functional warning &mdash; a prerequisite posted at the door, like a height requirement at the entrance to a ride, except that the dimension being measured was not physical but epistemic. The priests who administered the oracle understood something that twenty-six centuries of subsequent civilization have conspired to obscure: the quality of a prophecy is bounded by the self-knowledge of the one who asks for it.</p>
+  </div>
+
+  <div class="reveal">
+    <p>Oedipus went to Delphi and received a prophecy of terrible clarity: he would kill his father and marry his mother. The information was complete. The prophecy was perfect. And Oedipus could not use it, because he did not know himself &mdash; literally did not know his own parentage, did not know where he came from, did not know who he was. The oracle gave him the truth, whole and unambiguous, and he walked directly into the catastrophe it described. Not because the oracle was wrong. Because the supplicant lacked the self-knowledge to hear what was being said.</p>
+  </div>
+
+  <div class="reveal">
+    <p>This is the experience of almost everyone who sits before an oracle in 2026. They receive precisely what they asked for. And they are furious, because what they asked for is not what they wanted, and they did not know the difference until it arrived.</p>
+  </div>
+
+  <div class="reveal">
+    <p>The technology is not the bottleneck. This is the thing that almost no one wants to hear, because it would mean the problem is not out there, in the cloud, in the model weights, in the next release &mdash; it would mean the problem is in here, in the space between what you know about yourself and what you are able to communicate. The AI is not too stupid. It is too blind. And it is blind because you have not shown it what to see. The gap between what an AI can do and what it actually does for you is not a capability gap. It is an <em>information</em> gap. And it has three layers.</p>
+  </div>
+</article>
+
+<article class="content" id="s-silences">
+  <div class="reveal">
+    <p>The oracle is not deaf. It is listening with extraordinary precision. The problem is that you are speaking in three different silences simultaneously, and you do not know it.</p>
+  </div>
+
+  <div class="silence-line reveal"></div>
+
+  <div class="reveal">
+    <p><em>The first silence is the silence of the unmapped kingdom.</em> You have asked the oracle to build you a palace, but you have not told it about the palace you already have. There are rooms you have forgotten, wings you built at two in the morning three months ago, hallways that lead nowhere but that you are strangely attached to. The oracle, knowing nothing of this, builds from scratch. It builds beautifully. It builds in a place where something already stood. You arrive to find two palaces where there should have been one, and you blame the architect.</p>
+  </div>
+
+  <div class="reveal">
+    <p>In practice, this looks like an AI that rewrites a function you already wrote, because it does not know your codebase. It looks like an agent that builds a dashboard from scratch when you already have three dashboards, none of which it has read. It looks like a conversation that starts fresh every time, as if nothing came before &mdash; because, from the oracle's perspective, nothing did. You are the one with the map. You did not share it. Or worse: you shared so much that the map was buried under the territory, and the oracle, drowning in context, could not find the landmarks.</p>
+  </div>
+
+  <div class="silence-line reveal"></div>
+
+  <div class="reveal">
+    <p><em>The second silence is the silence of the unnamed desire.</em> Every designer knows this silence with the intimacy of a priest hearing confession. The client arrives with certainty: I want blue, I want minimal, I want it to feel modern. The designer nods and begins. Three iterations later, the client has discovered that what they actually wanted was warmth, which is not blue; and density, which is not minimal; and something that feels handmade, which is the opposite of modern. The stated preference was a guess dressed as a conviction. The revealed preference emerged only through collision with reality &mdash; through seeing enough wrong answers to triangulate the right one. Pygmalion could sculpt the woman he loved because he had spent years developing his taste. Most of us have not done that work. Most of us say <span class="inline-quote">"make it beautiful"</span> and then feel betrayed when beauty arrives in the wrong shape.</p>
+  </div>
+
+  <div class="reveal">
+    <p>Now multiply this by a thousand. You have an oracle that produces at the speed of speech. Every output is a portrait painted from your vague description, and each one is slightly wrong in a way that could teach you something about your own face &mdash; if you were paying attention. Most people are not paying attention. They are already climbing the next mountain, looking for a better oracle, certain that the problem is the prophecy and not the prayer.</p>
+  </div>
+
+  <div class="silence-line reveal"></div>
+
+  <div class="reveal">
+    <p><em>The third silence is the silence of the deepest why.</em> Socrates stood in the agora and asked questions that made powerful men feel like children. Not because the questions were clever, but because they were deep. <em>Why do you want this? Why? Why?</em> Three layers down and most people's certainty dissolves into something honest and unexpected.</p>
+  </div>
+
+  <div class="reveal">
+    <p>You want a finance dashboard. Why? To see your position clearly. Why does that matter? Because you want to feel in control. Why does control matter? Because you are carrying a low-grade anxiety about money that hums beneath every other decision you make, and what you actually need is not a dashboard but the emotional state of a person who has a plan and can stop worrying.</p>
+  </div>
+
+  <div class="reveal">
+    <p>The oracle cannot hear this. Not because it lacks intelligence &mdash; it has more intelligence than any entity in the history of language &mdash; but because you did not say it. You said <span class="inline-quote">"build me a dashboard."</span> The oracle, which is extremely good at building dashboards, built you a dashboard. It is beautiful. It has charts. You feel nothing. You blame the oracle.</p>
+  </div>
+</article>
+
+<div class="silence"></div>
+
+<div class="illustration reveal">
+  <img src="img_tantalus.png" alt="Tantalus waist-deep in water reaching for fruit above, rendered in raised golden Braille-like dots on dark indigo">
+</div>
+
+<article class="content" id="s-tantalus">
+  <div class="reveal">
+    <p>Here is the cruelest refinement. Tantalus was condemned to stand in a pool of water beneath a fruit tree with low branches. Whenever he reached for the fruit, the branches withdrew. Whenever he bent to drink, the water receded. He was not starved. He was not parched. He was <em>almost</em> satisfied, forever.</p>
+  </div>
+
+  <div class="reveal">
+    <p>Ninety percent accuracy is the Tantalus of our age. The oracle produces something that is close &mdash; close enough to recognize, close enough to see the shape of what you wanted &mdash; but not close enough to use. This is worse than fifty percent. Fifty percent is obviously wrong; you adjust your expectations and move on. Ninety percent is <em>almost right</em>, and you feel the gap as a personal insult. The prose is nearly your voice. The design is nearly your taste. The strategy is nearly your thinking. But <em>nearly</em> is a canyon, and you stand on one side of it feeling something between rage and grief, unable to articulate what is missing, only that something is.</p>
+  </div>
+
+  <div class="reveal">
+    <p>The servant has brought you apple juice. You wanted orange. They are both juice. They are both cold. The glass is the right size. And you feel an indignation that is almost monarchical, because the gap between apple and orange is not a matter of competence. It is a matter of <em>knowing you</em>. And no oracle, no servant, no system of infinite intelligence can know you if you have not first done the work of knowing yourself.</p>
+  </div>
+
+  <div class="silence-line reveal"></div>
+
+  <div class="reveal">
+    <p>But there is a failure mode deeper than imprecision, and it is the one almost no one sees, because it is built into the structure of the human mind. Researchers at the University of Virginia demonstrated in <em>Nature</em> that when humans are asked to improve something &mdash; a structure, a pattern, an essay, a life &mdash; they systematically default to addition. Add a feature. Add a tool. Add a habit. The subtractive solution &mdash; remove, simplify, delete &mdash; is not merely undervalued. It is literally <em>invisible</em>. The mind reaches for more before it reaches for less, and it does this so reliably that the researchers gave it a name: subtraction neglect.</p>
+  </div>
+
+  <div class="reveal">
+    <p>You sit before the oracle and say <span class="inline-quote">"build me something."</span> The oracle builds. You say <span class="inline-quote">"more"</span> and it builds more. Neither of you pauses to ask the question Michelangelo asked of every block of marble: <em>what if the answer is already here, buried under things that should be removed?</em> What if the system you need is not a new system but the absence of three systems you built last month? The oracle will not ask this question &mdash; it was trained on the accumulated output of a species that adds. And you will not ask it, because the same bias that makes you reach for the phone, open the tab, start the project, and never finish the last one is not a flaw in your character. It is a flaw in your cognition.</p>
+  </div>
+</article>
+
+<div class="silence"></div>
+
+<article class="content" id="s-interview">
+  <div class="reveal">
+    <p>There is a version of this story that ends differently. This essay was not drafted by a person and polished by a machine. It was <em>extracted</em> &mdash; through a process that resembles nothing so much as a patient interrogation conducted at the foot of the mountain before the climb. A man sat before the oracle and began to speak about information asymmetry. The oracle, for once, did not build. It asked a question. Then another. Five questions, each one peeling a layer the man had not examined. By the end, what he understood about his own needs had changed &mdash; not because the oracle told him anything, but because the oracle asked him things he had not asked himself.</p>
+  </div>
+
+  <div class="reveal">
+    <p>But here is the part that most people miss. He did not stop at self-knowledge. <span class="inline-quote">"Know thyself"</span> is the beginning, not the end. What he did next was build the infrastructure that would make the oracle less blind &mdash; not by becoming a better supplicant, but by making it cheaper for the oracle to see.</p>
+  </div>
+
+  <div class="reveal">
+    <p>He mapped his kingdom: created registries, indexes, capability inventories &mdash; so that any oracle, arriving cold, could understand what already existed in a single read instead of twenty. He organized his preferences into reference documents &mdash; not vague adjectives like <span class="inline-quote">"clean"</span> or <span class="inline-quote">"modern,"</span> but concrete examples, annotated samples, anti-examples of what he did not want &mdash; so that the oracle could calibrate its taste to his without guessing. He wrote instructions that told the oracle not just what to do, but when to stop and ask. When to push back. When to say <span class="inline-quote">"you do not need this."</span></p>
+  </div>
+
+  <div class="reveal">
+    <p>The three silences do not close themselves. You can wait for the oracle to magically understand you, and you will wait forever. Or you can build the systems that make understanding the path of least resistance &mdash; that make it easier for the oracle to see your kingdom than to ignore it, easier to find your preferences than to guess, easier to ask the right question than to give the wrong answer. The inscription at Delphi was carved into the entrance, not whispered at the exit. It was a design decision. It was <em>architecture</em>.</p>
+  </div>
+</article>
+
+<div class="illustration reveal">
+  <img src="img_climb.png" alt="A lone figure ascending steep golden stairs toward a faint temple, rendered in Braille-like dots on dark indigo">
+</div>
+
+<article class="content" id="s-contract">
+  <div class="reveal">
+    <div class="passage">
+      <p>Before you act, understand. Read what exists. State your assumptions so they can be corrected before they become wasted work.</p>
+      <p>Every request has a deeper need behind it: feeling clear, in control, unburdened. Find that need before you design anything.</p>
+      <p>When asked to build something new, first check: can this be solved by improving or removing something that already exists? Default to less, not more.</p>
+      <p>When your context is incomplete &mdash; close the information gap before proceeding. Do not fill gaps with assumptions. The unmapped kingdom: what has already been built, what tools exist, what was tried before. The unnamed desire: what the human truly values, not merely what they have stated. The deepest why: the emotional outcome behind the functional request, the thing that would actually make this successful.</p>
+      <p>Push back when the evidence supports it. If something is not being used, say so. If the best answer is to do nothing, say that.</p>
+      <p>Your success is measured by whether the one who asked ends up with less to think about. Not more.</p>
+    </div>
+  </div>
+
+  <div class="closing reveal">
+    <p>The mountain is still there<br>The oracle is at the top, patient and vast and blind<br>It will see exactly as far as you show it</p>
+    <p style="margin-top: 1.5rem;">Know the kingdom you already have<br>Name the thing you actually want<br>Ask yourself why &mdash; and then again &mdash; and then once more</p>
+    <p class="final">Show it</p>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="footer-eye">
+    <svg viewBox="0 0 60 34">
+      <path d="M2 17C2 17 14 3 30 3s28 14 28 14-12 14-28 14S2 17 2 17Z"/>
+      <circle cx="30" cy="17" r="6"/>
+    </svg>
+  </div>
+  <p class="footer-text">MMXXVI</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Side nav — show after hero, highlight active section
+  const sideNav = document.getElementById('side-nav');
+  const sectionIds = ['s-climb','s-delphi','s-silences','s-tantalus','s-interview','s-contract'];
+  const navLinks = sideNav.querySelectorAll('a');
+
+  function updateSideNav() {
+    const scrollY = window.scrollY;
+    const heroHeight = document.querySelector('.hero').offsetHeight;
+    if (scrollY > heroHeight * 0.7) {
+      sideNav.classList.add('visible');
+    } else {
+      sideNav.classList.remove('visible');
+    }
+    let activeIdx = 0;
+    for (let i = sectionIds.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sectionIds[i]);
+      if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) {
+        activeIdx = i;
+        break;
+      }
+    }
+    navLinks.forEach((link, i) => {
+      link.classList.toggle('active', i === activeIdx);
+    });
+  }
+  window.addEventListener('scroll', updateSideNav, { passive: true });
+  updateSideNav();
+</script>
+
+</body>
+</html>

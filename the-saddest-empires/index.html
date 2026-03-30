@@ -330,9 +330,34 @@
     .hero-scroll, body::before { display: none; }
     .hero { min-height: auto; padding: 2rem; }
   }
+
+  .back { position: fixed; top: 24px; left: 24px; z-index: 100; }
+  .back a { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.08em; color: var(--ink-faded); text-decoration: none; transition: color 0.2s ease; }
+  .back a:hover { color: var(--gold); }
+  .side-nav { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 0; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+  .side-nav.visible { opacity: 1; pointer-events: auto; }
+  .side-nav a { display: flex; align-items: center; gap: 6px; padding: 5px 0; text-decoration: none; cursor: pointer; }
+  .side-nav a::before { content: ''; display: block; width: 16px; height: 1.5px; background: var(--ink-faded); flex-shrink: 0; order: 1; transition: background 0.2s ease, width 0.2s ease; }
+  .side-nav a::after { content: attr(data-num); font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-faded); flex-shrink: 0; order: 2; transition: color 0.2s ease; }
+  .side-nav-label { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-light); white-space: nowrap; opacity: 0; order: 3; transition: opacity 0.2s ease; pointer-events: none; }
+  .side-nav a:hover::before { background: var(--ink-light); width: 24px; }
+  .side-nav a:hover::after { color: var(--ink-light); }
+  .side-nav a:hover .side-nav-label { opacity: 1; }
+  .side-nav a.active::before { background: var(--gold); width: 24px; height: 2px; }
+  .side-nav a.active::after { color: var(--gold); }
+  .side-nav a.active .side-nav-label { opacity: 1; color: var(--gold); }
+  @media (max-width: 1000px) { .side-nav { display: none; } }
 </style>
 </head>
 <body>
+
+<nav class="back"><a href="/">&#60; essays</a></nav>
+<nav class="side-nav" id="side-nav">
+  <a href="#s-throne" data-num="I"><span class="side-nav-label">The Throne</span></a>
+  <a href="#s-servants" data-num="II"><span class="side-nav-label">The Servants</span></a>
+  <a href="#s-ruins" data-num="III"><span class="side-nav-label">The Mirror</span></a>
+  <a href="#s-closing" data-num="IV"><span class="side-nav-label">Closing</span></a>
+</nav>
 
 <header class="hero">
   <div class="hero-ornament">✦</div>
@@ -350,7 +375,7 @@
   <img src="img_ruins.png" alt="Ruins of a crumbling empire with broken columns">
 </div>
 
-<article class="content">
+<article class="content" id="s-throne">
   <div class="reveal">
     <p class="drop-cap">There is a particular kind of morning that belongs to 2026 and no other year in the history of the species. You are in bed. You have not yet brushed your teeth. You speak a few sentences into the dark — or into the light of a screen, which amounts to the same thing — and somewhere, in a place that is not a place, something that is not a person begins to build for you. A script, an application, a ten-page analysis, a draft of something you have been meaning to write for months. By the time you stand up it may already be finished. You did not earn this. You are not dressed.</p>
   </div>
@@ -380,7 +405,7 @@
   <img src="img_laptop.png" alt="A laptop on an ancient stone pedestal with ivy">
 </div>
 
-<article class="content">
+<article class="content" id="s-servants">
   <div class="reveal">
     <p>The frustration operates on two frequencies, and you feel them both simultaneously.</p>
   </div>
@@ -402,7 +427,7 @@
   <img src="img_servants.png" alt="A line of robed servants waiting for instruction">
 </div>
 
-<article class="content">
+<article class="content" id="s-ruins">
   <div class="reveal">
     <p>And here is the cruelest part. You blame the servants. You say their work lacks soul, that it is generic, lifeless, not worthy of your name. But they were forged from the words of your kind — billions of them — and the vast majority were ordinary. The mirror they hold up is accurate. The reflection is bland because the face is bland. The failure is not the servant. It is the king.</p>
   </div>
@@ -428,7 +453,7 @@
   <img src="img_crown.png" alt="A heavy crown atop an ancient pedestal">
 </div>
 
-<article class="content">
+<article class="content" id="s-closing">
   <div class="reveal">
     <p>A friend of mine, after listening to all of this, was inspired to write something. He sent it late at night, and each time I read it, it arrives with the same force:</p>
   </div>
@@ -456,6 +481,23 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const sideNav = document.getElementById('side-nav');
+  const sectionIds = ['s-throne','s-servants','s-ruins','s-closing'];
+  const navLinks = sideNav.querySelectorAll('a');
+  function updateSideNav() {
+    const scrollY = window.scrollY;
+    const heroHeight = document.querySelector('.hero').offsetHeight;
+    if (scrollY > heroHeight * 0.7) { sideNav.classList.add('visible'); } else { sideNav.classList.remove('visible'); }
+    let activeIdx = 0;
+    for (let i = sectionIds.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sectionIds[i]);
+      if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) { activeIdx = i; break; }
+    }
+    navLinks.forEach((link, i) => { link.classList.toggle('active', i === activeIdx); });
+  }
+  window.addEventListener('scroll', updateSideNav, { passive: true });
+  updateSideNav();
 </script>
 
 </body>

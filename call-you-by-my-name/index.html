@@ -406,12 +406,36 @@
     .prose p { font-size: 15px; }
     .back { top: 16px; left: 16px; }
   }
+
+  .side-nav { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 0; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+  .side-nav.visible { opacity: 1; pointer-events: auto; }
+  .side-nav a { display: flex; align-items: center; gap: 6px; padding: 5px 0; text-decoration: none; cursor: pointer; }
+  .side-nav a::before { content: ''; display: block; width: 16px; height: 1.5px; background: var(--text-dim); flex-shrink: 0; order: 1; transition: background 0.2s ease, width 0.2s ease; }
+  .side-nav a::after { content: attr(data-num); font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: var(--text-dim); flex-shrink: 0; order: 2; transition: color 0.2s ease; }
+  .side-nav-label { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: var(--text-secondary); white-space: nowrap; text-transform: uppercase; opacity: 0; order: 3; transition: opacity 0.2s ease; pointer-events: none; }
+  .side-nav a:hover::before { background: var(--text-secondary); width: 24px; }
+  .side-nav a:hover::after { color: var(--text-secondary); }
+  .side-nav a:hover .side-nav-label { opacity: 1; }
+  .side-nav a.active::before { background: var(--copper); width: 24px; height: 2px; }
+  .side-nav a.active::after { color: var(--copper); }
+  .side-nav a.active .side-nav-label { opacity: 1; color: var(--copper); }
+  @media (max-width: 1000px) { .side-nav { display: none; } }
 </style>
 </head>
 <body>
 
 <nav class="back">
-  <a href="/">< essays</a>
+  <a href="/">&#60; essays</a>
+</nav>
+
+<nav class="side-nav" id="side-nav">
+  <a href="#s-test" data-num="I"><span class="side-nav-label">The Test</span></a>
+  <a href="#s-method" data-num="II"><span class="side-nav-label">The Method</span></a>
+  <a href="#s-research" data-num="III"><span class="side-nav-label">The Research</span></a>
+  <a href="#s-thinking" data-num="IV"><span class="side-nav-label">The Thinking</span></a>
+  <a href="#s-name" data-num="V"><span class="side-nav-label">The Name</span></a>
+  <a href="#s-reveal" data-num="VI"><span class="side-nav-label">The Reveal</span></a>
+  <a href="#s-naming" data-num="VII"><span class="side-nav-label">The Naming</span></a>
 </nav>
 
 <header class="hero">
@@ -425,7 +449,7 @@
 </header>
 
 <!-- I. OPENING -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-test">
   <span class="section-num">I</span>
   <p>On a Thursday evening, Samuel sat down at his terminal and decided not to name his agent. Instead, he would make it name itself — by proving it knew him well enough to get it right.</p>
   <p>The agent had the data. 1,751 films. 400 books. Every rating, every review, every curated list he'd ever made. Years of taste, ingested into a database. The question was whether any of that added up to actually <em>knowing</em> someone.</p>
@@ -471,7 +495,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- II. THE ASSIGNMENT -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-method">
   <span class="section-num">II</span>
   <p>He had something else in mind.</p>
 </div>
@@ -508,7 +532,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- III. THE RESEARCH -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-research">
   <span class="section-num">III</span>
   <p>What followed was a lot of digging. The Oracle pulled sources, cross-referenced, built a case. But first, it found something in its own memory — a stored learning from a previous session. A record of the last time it tried this and failed:</p>
 </div>
@@ -583,7 +607,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- IV. THE SCRATCHPAD -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-thinking">
   <span class="section-num">IV</span>
   <p>Then it showed its work. Not the answer — the thinking behind it. The scratchpad.</p>
 </div>
@@ -652,7 +676,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- V. THE ANSWER -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-name">
   <span class="section-num">V</span>
   <p>Then it made its pick.</p>
 </div>
@@ -706,7 +730,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- VI. THE VERDICT -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-reveal">
   <span class="section-num">VI</span>
 </div>
 
@@ -740,7 +764,7 @@
 <div class="break reveal"><span>...</span></div>
 
 <!-- VII. CLOSING -->
-<div class="prose reveal">
+<div class="prose reveal" id="s-naming">
   <span class="section-num">VII</span>
   <p>Two learnings were stored to the database. The agent configuration was updated. The header that once read <em>Taste Oracle — Mirror of Samuel's Aesthetic Soul</em> now carried a name that was earned, not assigned.</p>
   <p>The only agent in the roster named not for a god, but for a character from a film about a magnificent asshole who never stops hustling.</p>
@@ -763,6 +787,23 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const sideNav = document.getElementById('side-nav');
+  const sectionIds = ['s-test','s-method','s-research','s-thinking','s-name','s-reveal','s-naming'];
+  const navLinks = sideNav.querySelectorAll('a');
+  function updateSideNav() {
+    const scrollY = window.scrollY;
+    const heroHeight = document.querySelector('.hero').offsetHeight;
+    if (scrollY > heroHeight * 0.7) { sideNav.classList.add('visible'); } else { sideNav.classList.remove('visible'); }
+    let activeIdx = 0;
+    for (let i = sectionIds.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sectionIds[i]);
+      if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) { activeIdx = i; break; }
+    }
+    navLinks.forEach((link, i) => { link.classList.toggle('active', i === activeIdx); });
+  }
+  window.addEventListener('scroll', updateSideNav, { passive: true });
+  updateSideNav();
 </script>
 
 </body>
