@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tend Your Garden</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap');
+
+  :root {
+    --soil: #0f110e;
+    --soil-light: #1a1d17;
+    --dirt: #2a2520;
+    --dirt-light: #3a332c;
+    --text: #c8c4b8;
+    --text-dim: #6b7165;
+    --vine: #6a8c5b;
+    --vine-dark: #4a6340;
+    --vine-bright: #8aad78;
+    --flower-pink: #c47a8a;
+    --flower-gold: #c9a24a;
+    --flower-blue: #7a8cc4;
+    --weed: #5a6148;
+    --weed-dark: #3d4232;
+    --water: #5a7a9a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--soil);
+    color: var(--text);
+    font-family: monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 320px;
+  }
+
+  /* ===== GARDEN GRID ===== */
+  .garden-wrap {
+    position: relative;
+    padding: 8px;
+    background: var(--dirt);
+    border: 2px solid var(--dirt-light);
+    box-shadow: 0 0 0 1px var(--soil), 4px 4px 0 var(--soil);
+  }
+
+  .garden {
+    display: grid;
+    grid-template-columns: repeat(6, 48px);
+    grid-template-rows: repeat(5, 48px);
+    gap: 2px;
+    background: var(--dirt);
+  }
+
+  .plot {
+    width: 48px;
+    height: 48px;
+    background: var(--dirt-light);
+    position: relative;
+    cursor: pointer;
+    transition: background 0.15s;
+    overflow: hidden;
+  }
+
+  .plot:hover {
+    background: #443c34;
+  }
+
+  .plot canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+  }
+
+  /* ===== TOOLS ===== */
+  .tools {
+    display: flex;
+    gap: 4px;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .tool {
+    width: 44px;
+    height: 44px;
+    background: var(--dirt);
+    border: 2px solid var(--dirt-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+
+  .tool:hover {
+    border-color: var(--text-dim);
+  }
+
+  .tool.active {
+    border-color: var(--vine);
+    background: var(--soil-light);
+  }
+
+  .tool canvas {
+    width: 24px;
+    height: 24px;
+    image-rendering: pixelated;
+  }
+
+  .tool-label {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .tool:hover .tool-label, .tool.active .tool-label {
+    opacity: 1;
+  }
+
+  /* ===== STATUS ===== */
+  .status {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .status span { color: var(--vine-bright); }
+
+  .wisdom {
+    margin-top: 2rem;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-style: italic;
+    text-align: center;
+    max-width: 340px;
+    line-height: 1.6;
+    min-height: 2.4em;
+    transition: opacity 0.4s;
+  }
+
+  /* ===== BACK LINK ===== */
+  .back {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+  }
+
+  .back a {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+
+  .back a:hover { color: var(--vine); }
+
+  /* ===== DAY CYCLE ===== */
+  .day-bar {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .day-btn {
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--dirt);
+    color: var(--text-dim);
+    border: 1px solid var(--dirt-light);
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .day-btn:hover {
+    border-color: var(--vine);
+    color: var(--text);
+  }
+
+  .day-count {
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+</style>
+</head>
+<body>
+
+<nav class="back"><a href="index.html">&#60; essay</a></nav>
+
+<h1>Tend Your Garden</h1>
+<p class="subtitle">plant seeds, water them, pull the weeds.<br>press "next day" to watch what grows.</p>
+
+<div class="garden-wrap">
+  <div class="garden" id="garden"></div>
+</div>
+
+<div class="tools" id="tools"></div>
+
+<div class="day-bar">
+  <button class="day-btn" id="next-day">Next Day</button>
+  <span class="day-count" id="day-count">Day 1</span>
+</div>
+
+<div class="status">
+  <div>plants <span id="stat-plants">0</span></div>
+  <div>weeds <span id="stat-weeds">0</span></div>
+  <div>blooming <span id="stat-bloom">0</span></div>
+</div>
+
+<div class="wisdom" id="wisdom"></div>
+
+<script>
+// ===== PIXEL DRAWING HELPERS =====
+const PLOT_PX = 16; // draw at 16x16, display at 48x48
+
+function createCanvas(size) {
+  const c = document.createElement('canvas');
+  c.width = size;
+  c.height = size;
+  return c;
+}
+
+function px(ctx, x, y, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, 1, 1);
+}
+
+// ===== PLANT SPRITES =====
+const SPRITES = {
+  // Each plant type has growth stages: seed, sprout, grown, bloom
+  // Each stage is a draw function(ctx, variant)
+
+  rose: {
+    name: 'rose',
+    color: '#c47a8a',
+    stages: [
+      // seed
+      (ctx) => {
+        px(ctx, 7, 12, '#5a4a3a');
+        px(ctx, 8, 12, '#5a4a3a');
+        px(ctx, 7, 11, '#6a5a4a');
+      },
+      // sprout
+      (ctx) => {
+        px(ctx, 8, 13, '#4a6340');
+        px(ctx, 8, 12, '#5a7348');
+        px(ctx, 8, 11, '#6a8c5b');
+        px(ctx, 7, 10, '#6a8c5b');
+        px(ctx, 9, 10, '#6a8c5b');
+      },
+      // grown
+      (ctx) => {
+        for (let y = 13; y >= 8; y--) px(ctx, 8, y, '#4a6340');
+        px(ctx, 7, 9, '#5a7348');
+        px(ctx, 9, 10, '#5a7348');
+        px(ctx, 6, 8, '#6a8c5b');
+        px(ctx, 10, 9, '#6a8c5b');
+        px(ctx, 8, 7, '#8a5a6a');
+        px(ctx, 7, 7, '#8a5a6a');
+        px(ctx, 9, 7, '#8a5a6a');
+      },
+      // bloom
+      (ctx) => {
+        for (let y = 13; y >= 7; y--) px(ctx, 8, y, '#4a6340');
+        px(ctx, 7, 10, '#5a7348'); px(ctx, 9, 10, '#5a7348');
+        px(ctx, 6, 9, '#6a8c5b'); px(ctx, 10, 9, '#6a8c5b');
+        // flower
+        px(ctx, 8, 5, '#c47a8a');
+        px(ctx, 7, 6, '#c47a8a'); px(ctx, 9, 6, '#c47a8a');
+        px(ctx, 8, 6, '#e8a0b0');
+        px(ctx, 6, 5, '#c47a8a'); px(ctx, 10, 5, '#c47a8a');
+        px(ctx, 7, 4, '#c47a8a'); px(ctx, 9, 4, '#c47a8a');
+        px(ctx, 8, 4, '#e8a0b0');
+      }
+    ]
+  },
+
+  herb: {
+    name: 'herb',
+    color: '#8aad78',
+    stages: [
+      (ctx) => {
+        px(ctx, 7, 12, '#5a4a3a');
+        px(ctx, 8, 12, '#5a4a3a');
+      },
+      (ctx) => {
+        px(ctx, 8, 13, '#4a6340');
+        px(ctx, 8, 12, '#5a7348');
+        px(ctx, 7, 11, '#6a8c5b');
+        px(ctx, 9, 11, '#6a8c5b');
+        px(ctx, 8, 11, '#8aad78');
+      },
+      (ctx) => {
+        px(ctx, 8, 13, '#4a6340'); px(ctx, 8, 12, '#4a6340');
+        px(ctx, 8, 11, '#5a7348'); px(ctx, 8, 10, '#5a7348');
+        px(ctx, 7, 10, '#6a8c5b'); px(ctx, 9, 10, '#6a8c5b');
+        px(ctx, 6, 9, '#8aad78'); px(ctx, 10, 9, '#8aad78');
+        px(ctx, 7, 9, '#6a8c5b'); px(ctx, 9, 9, '#6a8c5b');
+        px(ctx, 8, 8, '#8aad78');
+      },
+      (ctx) => {
+        px(ctx, 8, 13, '#4a6340'); px(ctx, 8, 12, '#4a6340');
+        px(ctx, 8, 11, '#5a7348'); px(ctx, 8, 10, '#5a7348');
+        px(ctx, 8, 9, '#5a7348'); px(ctx, 8, 8, '#6a8c5b');
+        px(ctx, 7, 10, '#6a8c5b'); px(ctx, 9, 10, '#6a8c5b');
+        px(ctx, 6, 9, '#8aad78'); px(ctx, 10, 9, '#8aad78');
+        px(ctx, 5, 8, '#8aad78'); px(ctx, 11, 8, '#8aad78');
+        px(ctx, 7, 7, '#a0c490'); px(ctx, 9, 7, '#a0c490');
+        px(ctx, 8, 6, '#a0c490');
+        px(ctx, 6, 7, '#8aad78'); px(ctx, 10, 7, '#8aad78');
+      }
+    ]
+  },
+
+  sunflower: {
+    name: 'sunflower',
+    color: '#c9a24a',
+    stages: [
+      (ctx) => {
+        px(ctx, 7, 13, '#5a4a3a');
+        px(ctx, 8, 13, '#6a5a4a');
+      },
+      (ctx) => {
+        px(ctx, 8, 14, '#4a6340');
+        px(ctx, 8, 13, '#5a7348');
+        px(ctx, 8, 12, '#6a8c5b');
+        px(ctx, 7, 11, '#6a8c5b');
+        px(ctx, 9, 12, '#5a7348');
+      },
+      (ctx) => {
+        for (let y = 14; y >= 8; y--) px(ctx, 8, y, '#4a6340');
+        px(ctx, 7, 11, '#5a7348'); px(ctx, 9, 10, '#5a7348');
+        px(ctx, 6, 10, '#6a8c5b'); px(ctx, 10, 9, '#6a8c5b');
+        px(ctx, 8, 7, '#8a7a2a');
+        px(ctx, 7, 7, '#c9a24a'); px(ctx, 9, 7, '#c9a24a');
+      },
+      (ctx) => {
+        for (let y = 14; y >= 6; y--) px(ctx, 8, y, '#4a6340');
+        px(ctx, 7, 11, '#5a7348'); px(ctx, 9, 10, '#5a7348');
+        px(ctx, 6, 10, '#6a8c5b'); px(ctx, 10, 9, '#6a8c5b');
+        // flower head
+        px(ctx, 7, 4, '#c9a24a'); px(ctx, 8, 4, '#c9a24a'); px(ctx, 9, 4, '#c9a24a');
+        px(ctx, 6, 5, '#c9a24a'); px(ctx, 10, 5, '#c9a24a');
+        px(ctx, 7, 5, '#8a6a1a'); px(ctx, 8, 5, '#6a4a0a'); px(ctx, 9, 5, '#8a6a1a');
+        px(ctx, 7, 6, '#c9a24a'); px(ctx, 9, 6, '#c9a24a');
+        px(ctx, 6, 6, '#e4c462'); px(ctx, 10, 6, '#e4c462');
+        px(ctx, 8, 3, '#e4c462');
+        px(ctx, 7, 3, '#c9a24a'); px(ctx, 9, 3, '#c9a24a');
+      }
+    ]
+  }
+};
+
+const WEED_SPRITE = (ctx, severity) => {
+  const c1 = '#3d4232';
+  const c2 = '#5a6148';
+  px(ctx, 7, 13, c1); px(ctx, 9, 13, c1);
+  px(ctx, 6, 12, c2); px(ctx, 10, 12, c2);
+  px(ctx, 8, 12, c1);
+  if (severity > 1) {
+    px(ctx, 5, 11, c2); px(ctx, 11, 11, c2);
+    px(ctx, 7, 11, c1); px(ctx, 9, 11, c1);
+    px(ctx, 8, 10, c2);
+  }
+  if (severity > 2) {
+    px(ctx, 4, 10, c2); px(ctx, 12, 10, c2);
+    px(ctx, 6, 10, c1); px(ctx, 10, 10, c1);
+    px(ctx, 7, 9, c2); px(ctx, 9, 9, c2);
+    px(ctx, 8, 8, c1);
+    px(ctx, 5, 9, c2); px(ctx, 11, 9, c2);
+  }
+};
+
+const WATER_DROPS = (ctx) => {
+  px(ctx, 4, 3, '#5a7a9a'); px(ctx, 11, 5, '#5a7a9a');
+  px(ctx, 6, 6, '#5a7a9a'); px(ctx, 13, 2, '#5a7a9a');
+};
+
+// ===== TOOL ICONS =====
+function drawToolIcon(type) {
+  const c = createCanvas(12);
+  const ctx = c.getContext('2d');
+
+  if (type === 'seed') {
+    px(ctx, 5, 7, '#5a4a3a'); px(ctx, 6, 7, '#6a5a4a');
+    px(ctx, 5, 6, '#6a5a4a'); px(ctx, 6, 6, '#5a4a3a');
+    px(ctx, 6, 5, '#6a8c5b'); px(ctx, 7, 4, '#6a8c5b');
+  } else if (type === 'water') {
+    px(ctx, 6, 3, '#5a7a9a');
+    px(ctx, 5, 4, '#5a7a9a'); px(ctx, 7, 4, '#5a7a9a');
+    px(ctx, 4, 5, '#5a7a9a'); px(ctx, 6, 5, '#7a9aba'); px(ctx, 8, 5, '#5a7a9a');
+    px(ctx, 5, 6, '#5a7a9a'); px(ctx, 7, 6, '#5a7a9a');
+    px(ctx, 6, 7, '#5a7a9a');
+  } else if (type === 'prune') {
+    px(ctx, 3, 8, '#8a7a6a'); px(ctx, 4, 7, '#8a7a6a');
+    px(ctx, 5, 6, '#aaa'); px(ctx, 6, 5, '#aaa'); px(ctx, 7, 4, '#ccc');
+    px(ctx, 8, 3, '#ccc');
+    px(ctx, 6, 7, '#8a7a6a'); px(ctx, 7, 8, '#8a7a6a');
+  }
+  return c;
+}
+
+// ===== GAME STATE =====
+const COLS = 6, ROWS = 5;
+const plots = [];
+let currentTool = 'seed';
+let currentSeedType = 0;
+let day = 1;
+
+const SEED_TYPES = [SPRITES.rose, SPRITES.herb, SPRITES.sunflower];
+
+const WISDOMS = [
+  'a garden that is not tended is not a garden. it is a field.',
+  'it is the time you have wasted for your rose that makes your rose so important.',
+  'what you water is what grows.',
+  'no rules are better than specific rules.',
+  'you can grow anything. you cannot tend everything.',
+  'pruning is not loss. it is selection.',
+  'data that flows in and never flows back is a dead garden.',
+  'the practice is the point, not the harvest.',
+  'every system you create competes for the only resource that was never infinite.',
+  'a garden that cannot tell you what needs water will die.',
+  'il faut cultiver notre jardin.',
+  'you are beautiful, but you are empty. one could not die for you.',
+  'tend fewer things. tend them deeply.',
+  'what grows when you are not looking? weeds.',
+];
+
+function initPlots() {
+  const gardenEl = document.getElementById('garden');
+  for (let i = 0; i < COLS * ROWS; i++) {
+    const plot = {
+      plant: null,     // { type, stage, watered, daysUnwatered }
+      weed: 0,         // 0-3 severity
+      el: document.createElement('div'),
+      canvas: createCanvas(PLOT_PX),
+    };
+    plot.el.className = 'plot';
+    plot.el.appendChild(plot.canvas);
+    plot.el.addEventListener('click', () => onPlotClick(i));
+    gardenEl.appendChild(plot.el);
+    plots.push(plot);
+  }
+}
+
+function onPlotClick(i) {
+  const plot = plots[i];
+
+  if (currentTool === 'seed') {
+    if (!plot.plant && plot.weed === 0) {
+      plot.plant = {
+        type: SEED_TYPES[currentSeedType],
+        stage: 0,
+        watered: true,
+        daysUnwatered: 0,
+      };
+      currentSeedType = (currentSeedType + 1) % SEED_TYPES.length;
+    }
+  } else if (currentTool === 'water') {
+    if (plot.plant) {
+      plot.plant.watered = true;
+      plot.plant.daysUnwatered = 0;
+    }
+  } else if (currentTool === 'prune') {
+    if (plot.weed > 0) {
+      plot.weed = 0;
+    } else if (plot.plant) {
+      plot.plant = null;
+    }
+  }
+
+  renderPlot(i);
+  updateStats();
+}
+
+function renderPlot(i) {
+  const plot = plots[i];
+  const ctx = plot.canvas.getContext('2d');
+  ctx.clearRect(0, 0, PLOT_PX, PLOT_PX);
+
+  // soil texture
+  ctx.fillStyle = '#2a2520';
+  ctx.fillRect(0, 14, PLOT_PX, 2);
+  px(ctx, 3, 14, '#332d26'); px(ctx, 10, 14, '#332d26');
+  px(ctx, 7, 15, '#332d26'); px(ctx, 13, 15, '#332d26');
+
+  if (plot.weed > 0) {
+    WEED_SPRITE(ctx, plot.weed);
+  }
+
+  if (plot.plant) {
+    const stage = Math.min(plot.plant.stage, 3);
+    plot.plant.type.stages[stage](ctx);
+
+    if (plot.plant.watered && plot.plant.stage < 3) {
+      WATER_DROPS(ctx);
+    }
+  }
+}
+
+function advanceDay() {
+  day++;
+
+  for (let i = 0; i < plots.length; i++) {
+    const plot = plots[i];
+
+    // grow plants
+    if (plot.plant) {
+      if (plot.plant.watered && plot.weed === 0) {
+        if (plot.plant.stage < 3) plot.plant.stage++;
+      }
+      plot.plant.watered = false;
+      plot.plant.daysUnwatered++;
+
+      // neglected plants attract weeds
+      if (plot.plant.daysUnwatered > 2 && Math.random() < 0.3) {
+        plot.weed = Math.min(plot.weed + 1, 3);
+      }
+    }
+
+    // random weeds on empty plots
+    if (!plot.plant && plot.weed === 0 && Math.random() < 0.08) {
+      plot.weed = 1;
+    }
+
+    // weeds spread
+    if (plot.weed > 0 && Math.random() < 0.15) {
+      plot.weed = Math.min(plot.weed + 1, 3);
+      // spread to neighbors
+      const neighbors = getNeighbors(i);
+      for (const n of neighbors) {
+        if (plots[n].weed === 0 && Math.random() < 0.12) {
+          plots[n].weed = 1;
+        }
+      }
+    }
+
+    // severe weeds kill plants
+    if (plot.weed >= 3 && plot.plant) {
+      plot.plant = null;
+    }
+
+    renderPlot(i);
+  }
+
+  document.getElementById('day-count').textContent = `Day ${day}`;
+  updateStats();
+  showWisdom();
+}
+
+function getNeighbors(i) {
+  const ns = [];
+  const col = i % COLS, row = Math.floor(i / COLS);
+  if (col > 0) ns.push(i - 1);
+  if (col < COLS - 1) ns.push(i + 1);
+  if (row > 0) ns.push(i - COLS);
+  if (row < ROWS - 1) ns.push(i + COLS);
+  return ns;
+}
+
+function updateStats() {
+  let plants = 0, weeds = 0, blooms = 0;
+  for (const p of plots) {
+    if (p.plant) plants++;
+    if (p.weed > 0) weeds++;
+    if (p.plant && p.plant.stage >= 3) blooms++;
+  }
+  document.getElementById('stat-plants').textContent = plants;
+  document.getElementById('stat-weeds').textContent = weeds;
+  document.getElementById('stat-bloom').textContent = blooms;
+}
+
+function showWisdom() {
+  const el = document.getElementById('wisdom');
+  el.style.opacity = 0;
+  setTimeout(() => {
+    el.textContent = WISDOMS[Math.floor(Math.random() * WISDOMS.length)];
+    el.style.opacity = 1;
+  }, 300);
+}
+
+// ===== INIT TOOLS =====
+function initTools() {
+  const toolsEl = document.getElementById('tools');
+  const toolDefs = [
+    { id: 'seed', label: 'plant' },
+    { id: 'water', label: 'water' },
+    { id: 'prune', label: 'prune' },
+  ];
+
+  for (const t of toolDefs) {
+    const btn = document.createElement('div');
+    btn.className = 'tool' + (t.id === currentTool ? ' active' : '');
+    btn.dataset.tool = t.id;
+    const icon = drawToolIcon(t.id);
+    icon.style.width = '24px';
+    icon.style.height = '24px';
+    icon.style.imageRendering = 'pixelated';
+    btn.appendChild(icon);
+    const label = document.createElement('span');
+    label.className = 'tool-label';
+    label.textContent = t.label;
+    btn.appendChild(label);
+    btn.addEventListener('click', () => {
+      currentTool = t.id;
+      document.querySelectorAll('.tool').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+    });
+    toolsEl.appendChild(btn);
+  }
+}
+
+// ===== BOOT =====
+initPlots();
+initTools();
+for (let i = 0; i < plots.length; i++) renderPlot(i);
+updateStats();
+showWisdom();
+
+document.getElementById('next-day').addEventListener('click', advanceDay);
+
+// keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.key === '1') { currentTool = 'seed'; syncToolUI(); }
+  if (e.key === '2') { currentTool = 'water'; syncToolUI(); }
+  if (e.key === '3') { currentTool = 'prune'; syncToolUI(); }
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); advanceDay(); }
+});
+
+function syncToolUI() {
+  document.querySelectorAll('.tool').forEach(el => {
+    el.classList.toggle('active', el.dataset.tool === currentTool);
+  });
+}
+</script>
+
+</body>
+</html>
